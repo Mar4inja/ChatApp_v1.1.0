@@ -42,3 +42,5 @@ public class Chat {
     )
     private List<User> users;
 }
+
+//TODO make nickname for user

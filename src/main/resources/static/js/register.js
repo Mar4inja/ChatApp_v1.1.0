@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => {
             if (response.ok) {
                 // If registration is successful
-                alert('Registration successful! You can now log in.');
+           alert('Registration successful! A confirmation email has been sent to the address you provided.');
                 window.location.href = 'login.html'; // Redirect to login page
             } else {
                 // If there is an error during registration

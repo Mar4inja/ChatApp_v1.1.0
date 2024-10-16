@@ -1,4 +1,5 @@
 package de.ait.chat.security.sec_service;
+
 import de.ait.chat.entity.User;
 import de.ait.chat.security.sec_dto.TokenResponseDto;
 import de.ait.chat.service.UserService;
@@ -42,11 +43,9 @@ public class AuthService {
                 throw new AuthException("User not found");  // Šeit mēs varam uztvert šo kļūdu klienta pusē kā **401**
             }
 
-//            if (!isRegistrationConfirmed(foundUser)) {
-//                logger.warn("E-mail confirmation not completed for user: " + username);
-//                throw new AuthException("E-mail confirmation was not completed");  // Šeit mēs varam uztvert šo kļūdu klienta pusē kā **401**
-//            }
-
+            if (!isRegistrationConfirmed(foundUser)) {
+                throw new AuthException("E-mail confirmation was not completed");
+            }
             if (encoder.matches(inboundUser.getPassword(), foundUser.getPassword())) {
                 logger.info("Password matches for user: " + username);
                 String accessToken = tokenService.generateAccessToken(foundUser);
@@ -92,5 +91,9 @@ public class AuthService {
         }
 
         return new TokenResponseDto(null, null);
+    }
+
+    private boolean isRegistrationConfirmed(User user) {
+        return user.isActive();
     }
 }

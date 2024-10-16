@@ -6,11 +6,12 @@ spring:
     password: Daten4you2024
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
+
 #  mail:
 #    host: smtp.gmail.com
 #    port: 587
-#    username: giflistify@gmail.com
-#    password: cctjikrhnlabrbky
+#    username: only.for.it.2023@gmail.com
+#    password: ravdokrwfajjrcgg
 #    properties:
 #      mail:
 #        smtp:

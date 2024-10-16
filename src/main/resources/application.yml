@@ -6,11 +6,31 @@ spring:
     password: Daten4you2024
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
-#  jpa:
-#    properties:
-#      hibernate:
-#        auto_quote_keyword: true
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: only.for.it.2023@gmail.com
+    password: ravdokrwfajjrcgg
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            protocols: TLSv1.2
+            trust: smtp.gmail.com
+        debug: true
+
+  logging:
+    level:
+      root: DEBUG
+      de.ait.chat: DEBUG
 
 key:
   access: Dm7QXW4YowIjJcIV/Qbs4u9R/RCCTPqeg7mkhaCJ6tA=
   refresh: 3zT4pEV8P/GQ6hTpjaZTsY8KRft4l6l0qtaCgWk5djg=
+
+app:
+  base-url: http://localhost:8080

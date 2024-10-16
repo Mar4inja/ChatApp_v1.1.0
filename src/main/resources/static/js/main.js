@@ -16,34 +16,27 @@ document.addEventListener('DOMContentLoaded', function() {
         '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
     ];
 
-   function connect(event) {
-       username = document.querySelector('#name').value.trim();
+    function connect(event) {
+        username = document.querySelector('#name').value.trim();
 
-       if (username) {
-           if (isLoggedIn()) {
-               usernamePage.classList.add('hidden');
-               chatPage.classList.remove('hidden');
+        if (username) {
+            if (isLoggedIn()) {
+                usernamePage.classList.add('hidden');
+                chatPage.classList.remove('hidden');
 
-               var socket = new SockJS('http://localhost:8080/ws'); // Pārliecinieties, ka šis ir pareizs ceļš
-               stompClient = Stomp.over(socket);
+                var socket = new SockJS('http://localhost:8080/ws'); // Adjust to your WebSocket endpoint
+                stompClient = Stomp.over(socket);
 
-               stompClient.connect({}, function(frame) {
-                   console.log('Connected: ' + frame);
-                   stompClient.subscribe('/topic/public', onMessageReceived);
-                   stompClient.send("/app/chat.addUser", {}, JSON.stringify({ sender: username, type: 'JOIN' }));
-                   connectingElement.classList.add('hidden');
-               }, function(error) {
-                   console.error('Connection error: ', error);
-                   connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
-                   connectingElement.style.color = 'red';
-               });
-           } else {
-               alert('You must be logged in to enter the chat.');
-           }
-       }
-       event.preventDefault();
-   }
-
+                stompClient.connect({}, function(frame) {
+                    console.log('Connected: ' + frame);
+                    onConnected(); // Call onConnected function
+                }, onError);
+            } else {
+                alert('You must log in to access the chat.'); // Alert if not logged in
+            }
+        }
+        event.preventDefault();
+    }
 
     function isLoggedIn() {
         return document.cookie.split(';').some((item) => item.trim().startsWith('token='));
@@ -118,6 +111,38 @@ document.addEventListener('DOMContentLoaded', function() {
         return colors[index];
     }
 
+    document.querySelector('#leaveChatBtn').addEventListener('click', function() {
+        if (stompClient) {
+            stompClient.send("/app/chat.sendMessage", {}, JSON.stringify({
+                sender: username,
+                type: 'LEAVE'
+            }));
+            stompClient.disconnect();
+        }
+        chatPage.classList.add('hidden');
+        usernamePage.classList.remove('hidden');
+    });
+
+    document.querySelector('#logoutBtn').addEventListener('click', function() {
+        if (stompClient) {
+            stompClient.send("/app/chat.sendMessage", {}, JSON.stringify({
+                sender: username,
+                type: 'LEAVE'
+            }));
+            stompClient.disconnect();
+        }
+        // Optionally, clear the token cookie or perform other cleanup
+        document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:01 GMT;'; // Clear token cookie
+
+        chatPage.classList.add('hidden'); // Hide chat page
+        usernamePage.classList.remove('hidden'); // Show username page
+    });
+
     usernameForm.addEventListener('submit', connect, true);
     messageForm.addEventListener('submit', sendMessage, true);
+
+    // Hide chatPage initially if not logged in
+    if (!isLoggedIn()) {
+        chatPage.classList.add('hidden');
+    }
 });
