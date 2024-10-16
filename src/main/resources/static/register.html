@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="css/register.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+<nav>
+    <div class="navbar-right">
+        <a href="login.html" id="loginLink" onclick="showLoginPage(); return false;">Login</a>
+        <a href="index.html" id="chatLink">Chat</a>
+        <a href="mainPage.html" id="homeLink">Home</a>
+    </div>
+</nav>
+
+<!-- Registration Page -->
+<div id="registration-page" class="hidden">
+    <div class="registration-page-container">
+        <h1 class="title">Register</h1>
+        <form id="registrationForm" name="registrationForm" class="horizontal-form">
+            <div class="form-group">
+                <input type="text" id="firstName" placeholder="First Name" autocomplete="off" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <input type="text" id="lastName" placeholder="Last Name" autocomplete="off" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <input type="date" id="birthdate" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Email" autocomplete="off" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" placeholder="Password" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="accent registration-submit">Register</button>
+            </div>
+        </form>
+    </div>
+</div>
+<footer>
+    <div class="footer-content">
+        <span>© 2024 GitHub, Inc. </span>
+        <a href="#">Terms</a>
+        <span> | </span>
+        <a href="#">Privacy (Updated 08/2022)</a>
+        <span> | </span>
+        <a href="#">Sitemap</a>
+        <span> | </span>
+        <a href="#">What is Git?</a>
+        <span> | </span>
+        <a href="#">Manage cookies</a>
+        <span> | </span>
+        <a href="#">Do not share my personal information</a>
+    </div>
+    <div class="social-links">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-telegram"></i></a>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="js/register.js"></script>
+</body>
+</html>
