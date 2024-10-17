@@ -52,6 +52,7 @@ public class SecurityConfig {
                         .requestMatchers("/mainPage.html").permitAll() // Разрешить доступ к HTML
                         .requestMatchers("/login.html").permitAll() // Разрешить доступ к HTML
                         .requestMatchers("/register.html").permitAll() // Разрешить доступ к HTML
+                        .requestMatchers("/chatRules.html").permitAll() // Разрешить доступ к HTML
 
                         .anyRequest().authenticated())
                 .httpBasic(AbstractHttpConfigurer::disable)

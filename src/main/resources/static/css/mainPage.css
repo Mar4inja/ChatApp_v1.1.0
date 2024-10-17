@@ -1,40 +1,70 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
+    margin: 0 auto;
     padding: 0;
-    background: url('/images/realistic-phone-with-social-media.jpg') no-repeat center calc(35%);
-    background-size: cover;
+    max-width: 80%; /* Center the body */
     color: white;
     text-align: center;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    overflow: hidden; /* Noņemt ritināšanas joslas */
+    min-height: 200vh; /* Increase height for scrolling */
+    overflow-y: scroll; /* Enable scrolling */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    scrollbar-width: none; /* Hide scrollbar in Firefox */
+    position: relative; /* Allow positioning of pseudo-element */
+    border: 2px solid white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Add shadow */
 }
 
+body::before {
+    content: ''; /* Create a pseudo-element */
+    position: fixed; /* Fix it to the viewport */
+    top: 0;
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    width: 80%; /* Set width to 80% */
+    height: 100%;
+    background: url('/images/chatIdeas/6685.jpg') no-repeat center calc(35%); /* Position background */
+    background-size: cover; /* Cover the entire area */
+    filter: blur(1px); /* Apply blur effect */
+    opacity: 0.95; /* Reduce opacity to 95% */
+    z-index: -1; /* Place behind other content */
+}
+/* Hide scrollbar in WebKit browsers (Chrome, Safari) */
+body::-webkit-scrollbar {
+    width: 0;
+}
 .hidden {
     display: none;
 }
-
 nav {
-    background-color: #333;
     color: white;
-    padding: 10px;
-    display: flex;
-    justify-content: flex-end;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
     padding: 10px 20px;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    position: fixed;
+    top: 0;
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    width: 80%; /* Match the body width */
+    z-index: 1000;
 }
-
+nav a {
+    color: #2ecc71; /* Zaļa tekstu krāsa */
+    text-decoration: none;
+    padding: 10px 15px; /* Pievienots pildījums ap pogām */
+    border: 2px solid #2ecc71; /* Zaļa robeža ap pogām */
+    border-radius: 5px; /* Noapaļotas malas */
+    transition: background-color 0.3s, color 0.3s; /* Pievienota pāreja, kad krāsas mainās */
+}
+nav a:hover {
+    background-color: #2ecc71; /* Zaļa fona krāsa peldošā efektā */
+    color: white; /* Balts teksts peldošā efektā */
+}
 .navbar-right {
     display: flex;
     gap: 20px;
 }
-
 .container {
     flex: 1;
     display: flex;
@@ -42,21 +72,20 @@ nav a {
     align-items: center;
     justify-content: center;
 }
-
 .ads {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin-bottom: 20%;
+    gap: 20px; /* Add spacing between ads */
 }
-
 .ad {
     position: relative;
     padding: 20px;
     margin: 10px;
     border-radius: 10px;
-    width: 10cm;
-    height: 8cm;
+    width: 6cm;
+    height: 6cm;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -66,14 +95,12 @@ nav a {
     border: 2px solid rgba(255, 255, 255, 0.788);
     transition: transform 0.3s ease-in-out;
     background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px); /* Pievienots blur efekts tikai fona attēlam */
+    backdrop-filter: blur(5px); /* Add blur effect to background only */
 }
-
 .ad:hover {
     transform: scale(1.05);
-    filter: none; /* Noņem blur efektu uz hover */
+    filter: none; /* Remove blur effect on hover */
 }
-
 .ad-text {
     position: absolute;
     top: 50%;
@@ -81,59 +108,53 @@ nav a {
     transform: translate(-50%, -50%);
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
-    color: white; /* Teksta krāsa ir balta, lai būtu skaidra */
+    color: white; /* Ensure text color is clear */
 }
-
 .ad:hover .ad-text {
     opacity: 1;
 }
-
-/* Atsevišķi foni katram sludinājumam */
 .ad:nth-child(1) {
     background: url('/images/1.jpg');
     background-size: cover;
 }
-
 .ad:nth-child(2) {
     background: url('/images/2.jpg');
     background-size: cover;
 }
-
 .ad:nth-child(3) {
     background: url('/images/3.jpg');
     background-size: cover;
 }
-
 .ad:nth-child(4) {
     background: url('/images/4.jpg');
     background-size: cover;
 }
-
 .ad:nth-child(5) {
     background: url('/images/5.jpg');
     background-size: cover;
 }
-
 footer {
-    background: #333;
-    padding: 10px 20px;
+    background: #2c3e50; /* Consistent footer color */
+    padding: 10px 0; /* Add vertical padding */
     color: white;
-    width: 100%;
+    width: 100%; /* Set footer width to 100% */
+    position: relative; /* Keep footer positioned properly */
+    left: 0; /* Align the footer to the left edge */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-shrink: 0;
     flex-direction: column;
 }
-
 .footer-content {
+    width: 80%; /* Set footer content width to 80% */
+    margin: 0 auto; /* Center the footer content */
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
     gap: 10px;
     white-space: nowrap;
 }
-
 footer p, footer a, .footer-content span {
     margin: 0;
     padding: 5px 0;
@@ -141,11 +162,9 @@ footer p, footer a, .footer-content span {
     text-decoration: none;
     line-height: 1.5;
 }
-
 footer a:hover {
     color: #ff5722;
 }
-
 .social-links {
     display: flex;
     justify-content: center;
@@ -154,29 +173,101 @@ footer a:hover {
     position: absolute;
     right: 5cm;
 }
-
 .social-links a {
     color: white;
     text-decoration: none;
-    font-size: 1.5em;
+    font-size: 1.5em; /* Increase icon size */
 }
 
 .social-links a:hover {
-    color: #ff5722;
+    color: #ff5722; /* Orange color on hover */
 }
-
+/* Username page styles */
+#username-page {
+    text-align: center;
+}
+.username-page-container {
+    background: #fff;
+    box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
+    border-radius: 2px;
+    width: 100%;
+    max-width: 500px;
+    display: inline-block;
+    margin-top: 42px;
+    padding: 35px 55px 35px;
+    min-height: 250px;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    margin-top: -160px;
+}
+.username-page-container .username-submit {
+    margin-top: 10px;
+}
+/* Chat page styles */
+#chat-page {
+    position: relative;
+    height: 100%;
+}
+.chat-container {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fff;
+    box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
+    margin-top: 30px;
+    height: calc(100% - 60px);
+    max-height: 600px;
+    position: relative;
+}
+#chat-page ul {
+    list-style-type: none;
+    background-color: #FFF;
+    margin: 0;
+    overflow: auto;
+    overflow-y: scroll;
+    padding: 0 20px;
+    height: calc(100% - 150px);
+}
+#chat-page ul li {
+    line-height: 1.5rem;
+    padding: 10px 20px;
+    margin: 0;
+    border-bottom: 1px solid #f4f4f4;
+}
+#chat-page .event-message {
+    text-align: center;
+    color: #777;
+    font-size: 14px;
+}
+#messageForm .input-group input {
+    float: left;
+    width: calc(100% - 85px);
+}
+#messageForm .input-group button {
+    float: left;
+    width: 80px;
+    height: 38px;
+    margin-left: 5px;
+}
+.chat-header {
+    text-align: center;
+    padding: 15px;
+    border-bottom: 1px solid #ececec;
+}
 /* Media queries */
 @media screen and (max-width: 730px) {
     .ads {
-        flex-direction: column; /* Sakrīt sludinājumus mazākās ekrānos */
+        flex-direction: column; /* Stack ads on smaller screens */
     }
     .ad {
-        width: 90%; /* Pilna platuma sludinājumi mazākās ekrānos */
+        width: 90%; /* Full-width ads on smaller screens */
     }
 }
-
 @media screen and (max-width: 480px) {
     footer {
-        flex-direction: column; /* Sakrīt kājiņu saites */
+        flex-direction: column; /* Stack footer links */
     }
 }
