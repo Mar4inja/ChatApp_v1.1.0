@@ -48,3 +48,5 @@ public class ChatController {
         return chatMessage;
     }
 }
+
+//TODO Create all Room structure!!!

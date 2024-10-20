@@ -24,11 +24,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 usernamePage.classList.add('hidden');
                 chatPage.classList.remove('hidden');
 
-                var socket = new SockJS('http://localhost:8080/ws'); // Adjust to your WebSocket endpoint
+                var socket = new SockJS('http://localhost:8080/ws'); // Pārliecinieties, ka šis URL ir pareizs
                 stompClient = Stomp.over(socket);
 
                 stompClient.connect({}, function(frame) {
-                    console.log('Connected: ' + frame);
+                    console.log('Connected: ' + frame); // Pievienots ziņojums
                     onConnected(); // Call onConnected function
                 }, onError);
             } else {
@@ -43,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function onConnected() {
+        console.log("Connected to WebSocket server"); // Pievienots ziņojums
         stompClient.subscribe('/topic/public', onMessageReceived);
         stompClient.send("/app/chat.addUser", {}, JSON.stringify({ sender: username, type: 'JOIN' }));
         connectingElement.classList.add('hidden');
@@ -54,7 +55,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function sendMessage(event) {
+        event.preventDefault(); // Pārliecinieties, ka tas ir augšā
         var messageContent = messageInput.value.trim();
+        console.log("Sending message: ", messageContent); // Pievienots ziņojums
         if (messageContent && stompClient) {
             var chatMessage = {
                 sender: username,
@@ -64,10 +67,10 @@ document.addEventListener('DOMContentLoaded', function() {
             stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
             messageInput.value = '';
         }
-        event.preventDefault();
     }
 
     function onMessageReceived(payload) {
+        console.log("Message received: ", payload); // Pievienots ziņojums
         var message = JSON.parse(payload.body);
         var messageElement = document.createElement('li');
 
