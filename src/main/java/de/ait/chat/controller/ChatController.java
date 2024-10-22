@@ -22,15 +22,19 @@ public class ChatController {
 
     @MessageMapping("/chat/{roomId}")
     @SendTo("/topic/chat/{roomId}")
-    public ChatMessage sendMessage(@DestinationVariable String roomId, @Payload ChatMessage chatMessage) {
-        // Handle the incoming message and return it to the room
-        return chatMessage; // Make sure to include roomId in your logic if needed
+    public ChatMessage sendMessage(@DestinationVariable Long roomId, @Payload ChatMessage chatMessage) {
+        // Saglabā ziņu datu bāzē
+        chatMessage.setRoomId(roomId); // Iestatām roomId ziņai
+        chatMessageService.saveMessage(chatMessage); // Saglabājam ziņu datu bāzē
+
+        return chatMessage; // Atgriežam ziņu
     }
 
     @MessageMapping("/chat.addUser/{roomId}")
     public ChatMessage addUser(@DestinationVariable String roomId, @Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
         headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
-        // Optionally log or handle the user joining
+        // Opcionalitātes līmenī var reģistrēt vai apstrādāt lietotāju pievienošanos
         return chatMessage;
     }
 }
+//TODO messages don't save in db!
