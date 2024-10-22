@@ -16,61 +16,77 @@ document.addEventListener('DOMContentLoaded', function() {
         '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
     ];
 
-    function connect(event) {
-        username = document.querySelector('#name').value.trim();
+  function connect(event) {
+      username = document.querySelector('#name').value.trim();
 
-        if (username) {
-            if (isLoggedIn()) {
-                usernamePage.classList.add('hidden');
-                chatPage.classList.remove('hidden');
+      if (username) {
+          if (isLoggedIn()) {
+              usernamePage.classList.add('hidden');
+              chatPage.classList.remove('hidden');
 
-                var socket = new SockJS('http://localhost:8080/ws'); // Pārliecinieties, ka šis URL ir pareizs
-                stompClient = Stomp.over(socket);
+              var socket = new SockJS('http://localhost:8080/ws'); // Make sure this URL is correct
+              stompClient = Stomp.over(socket);
 
-                stompClient.connect({}, function(frame) {
-                    console.log('Connected: ' + frame); // Pievienots ziņojums
-                    onConnected(); // Call onConnected function
-                }, onError);
-            } else {
-                alert('You must log in to access the chat.'); // Alert if not logged in
-            }
-        }
-        event.preventDefault();
-    }
+              stompClient.connect({}, function(frame) {
+                  console.log('Connected: ' + frame); // Added log message
+                  // Get the selected room from the dropdown
+                  var selectedRoom = document.querySelector('#room').value;
+                  onConnected(selectedRoom); // Pass selectedRoom to onConnected
+              }, onError);
+          } else {
+              alert('You must log in to access the chat.'); // Alert if not logged in
+          }
+      }
+      event.preventDefault();
+  }
+
 
     function isLoggedIn() {
         return document.cookie.split(';').some((item) => item.trim().startsWith('token='));
     }
 
-    function onConnected() {
-        console.log("Connected to WebSocket server"); // Pievienots ziņojums
-        stompClient.subscribe('/topic/public', onMessageReceived);
+    function onConnected(selectedRoom) {
+        console.log("Connected to WebSocket server");
+
+        // Subscribe to the topic for the selected room
+        stompClient.subscribe('/topic/room/' + selectedRoom, onMessageReceived);
+
+        // Send the join message to the server
         stompClient.send("/app/chat.addUser", {}, JSON.stringify({ sender: username, type: 'JOIN' }));
         connectingElement.classList.add('hidden');
     }
+
 
     function onError(error) {
         connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
         connectingElement.style.color = 'red';
     }
 
-    function sendMessage(event) {
-        event.preventDefault(); // Pārliecinieties, ka tas ir augšā
-        var messageContent = messageInput.value.trim();
-        console.log("Sending message: ", messageContent); // Pievienots ziņojums
-        if (messageContent && stompClient) {
-            var chatMessage = {
-                sender: username,
-                content: messageContent,
-                type: 'CHAT'
-            };
-            stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
-            messageInput.value = '';
-        }
-    }
+  function sendMessage(event) {
+      event.preventDefault();
+      var messageContent = messageInput.value.trim();
+      console.log("Sending message: ", messageContent);
+      if (messageContent && stompClient) {
+          var selectedRoom = document.querySelector('#room').value; // Get selected room ID
+
+          var chatMessage = {
+              sender: username,
+              content: messageContent,
+              type: 'CHAT',
+              roomId: selectedRoom // Include roomId in the message
+          };
+
+          // Send the message to the correct destination
+          stompClient.send(`/topic/room/${selectedRoom}`, {}, JSON.stringify(chatMessage));
+
+          messageInput.value = ''; // Clear input field
+      }
+  }
+
+
 
     function onMessageReceived(payload) {
-        console.log("Message received: ", payload); // Pievienots ziņojums
+        console.log("Message received: ", payload);
         var message = JSON.parse(payload.body);
         var messageElement = document.createElement('li');
 

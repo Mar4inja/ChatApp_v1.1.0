@@ -6,8 +6,6 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-
-
 @Entity
 @Table(name = "chat_message")
 @AllArgsConstructor
@@ -37,6 +35,9 @@ public class ChatMessage {
     @ManyToOne // Establishing the relationship with the User entity
     @JoinColumn(name = "user_id") // This will create a foreign key in the chat_message table
     private User user;
+
+    @Column(name = "room_id") // Pievienots room_id kā kolonna
+    private Long roomId; // Identificētājs konkrētai istabai
 
     @PrePersist
     protected void onCreate() {

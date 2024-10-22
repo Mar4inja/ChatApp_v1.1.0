@@ -48,10 +48,6 @@ public class User implements UserDetails {
     @Column(name = "birth_date")
     private LocalDate birthdate;
 
-    @ManyToMany(mappedBy = "users")
-    @JsonIgnore
-    private List<Chat> chats;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
