@@ -15,7 +15,7 @@
             <column name="content" type="TEXT">
                 <constraints nullable="false"/>
             </column>
-            <column name="sender" type="VARCHAR(255)"> <!-- Pievienotā 'sender' kolonna -->
+            <column name="sender" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
             <column name="created_at" type="DATETIME" defaultValueComputed="CURRENT_TIMESTAMP">
@@ -31,6 +31,7 @@
                                  referencedTableName="user"
                                  referencedColumnNames="id"
                                  constraintName="fk_chat_message_user"/>
+
     </changeSet>
 
 </databaseChangeLog>

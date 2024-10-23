@@ -3,7 +3,7 @@ package de.ait.chat.controller;
 import de.ait.chat.entity.ChatMessage;
 import de.ait.chat.entity.User;
 import de.ait.chat.service.ChatMessageService;
-import de.ait.chat.service.ChatService;
+
 import de.ait.chat.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -21,7 +21,6 @@ import java.security.Principal;
 public class ChatController {
 
     private final ChatMessageService chatMessageService;
-    private final ChatService chatService;
     private final UserService userService;
 
 
@@ -30,14 +29,12 @@ public class ChatController {
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage, Principal principal) {
-        // Assuming you have a method to find the user by username or some identifier
-        User user = userService.findByUsername(principal.getName()); // Use the username or a similar identifier
-        chatMessage.setUser(user); // Set the user in the chat message
+        User user = userService.findByUsername(principal.getName());
+        chatMessage.setUser(user);
 
-        chatMessageService.saveMessage(chatMessage); // Save the message to the database
-        return chatMessage; // Broadcast the message to all connected clients
+        chatMessageService.saveMessage(chatMessage);
+        return chatMessage;
     }
-
 
     @MessageMapping("/chat.addUser")
     @SendTo("/topic/public")

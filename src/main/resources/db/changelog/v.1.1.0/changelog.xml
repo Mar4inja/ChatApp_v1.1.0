@@ -10,6 +10,10 @@
 
     <include file="add-roles.xml" relativeToChangelogFile="true"/>
     <include file="create-table-user-role.xml" relativeToChangelogFile="true"/>
+    <include file="create-table-confirm-code.xml" relativeToChangelogFile="true"/>
+    <include file="add-foreign-keys-confirm-code-to-user.xml" relativeToChangelogFile="true"/>
+
+
 
 
 </databaseChangeLog>

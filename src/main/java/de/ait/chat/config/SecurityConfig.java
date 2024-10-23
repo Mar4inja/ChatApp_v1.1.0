@@ -44,6 +44,7 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/swagger-ui.html")).permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users/login", "/api/users/access", "/api/users/logout").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/users/activate").permitAll()
                         .requestMatchers("/js/**").permitAll() // Разрешить доступ к JavaScript
                         .requestMatchers("/css/**").permitAll() // Разрешить доступ к JavaScript
                         .requestMatchers("/images/**").permitAll() // Permit to pics
@@ -51,6 +52,7 @@ public class SecurityConfig {
                         .requestMatchers("/mainPage.html").permitAll() // Разрешить доступ к HTML
                         .requestMatchers("/login.html").permitAll() // Разрешить доступ к HTML
                         .requestMatchers("/register.html").permitAll() // Разрешить доступ к HTML
+                        .requestMatchers("/chatRules.html").permitAll() // Разрешить доступ к HTML
 
                         .anyRequest().authenticated())
                 .httpBasic(AbstractHttpConfigurer::disable)
