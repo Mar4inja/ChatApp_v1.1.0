@@ -8,7 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.List;
+
 
 @RestController
 @RequestMapping("/api/users") // Базовый URL для API пользователей
@@ -33,5 +34,13 @@ public class UserController {
         confirmationService.activateUser(code);
         return ResponseEntity.ok("User account activated successfully");
 
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<User>> searchUsers(
+            @RequestParam(required = false) String firstName,
+            @RequestParam(required = false) String lastName) {
+        List<User> users = userService.findUsers(firstName, lastName);
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 }

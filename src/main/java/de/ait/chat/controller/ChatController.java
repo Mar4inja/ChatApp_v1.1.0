@@ -3,7 +3,6 @@ package de.ait.chat.controller;
 import de.ait.chat.entity.ChatMessage;
 import de.ait.chat.entity.User;
 import de.ait.chat.service.ChatMessageService;
-
 import de.ait.chat.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -23,9 +22,6 @@ public class ChatController {
     private final ChatMessageService chatMessageService;
     private final UserService userService;
 
-
-
-
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
     public ChatMessage sendMessage(@Payload ChatMessage chatMessage, Principal principal) {
@@ -38,10 +34,9 @@ public class ChatController {
 
     @MessageMapping("/chat.addUser")
     @SendTo("/topic/public")
-    public ChatMessage addUser(
-            @Payload ChatMessage chatMessage,
-            SimpMessageHeaderAccessor headerAccessor) {
+    public ChatMessage addUser(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
         headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
         return chatMessage;
     }
+
 }

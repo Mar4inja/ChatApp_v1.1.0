@@ -1,6 +1,7 @@
 package de.ait.chat.service.impl;
 
 import de.ait.chat.entity.User;
+import de.ait.chat.exceptions.UserNotFoundException;
 import de.ait.chat.repository.RoleRepository;
 import de.ait.chat.repository.UserRepository;
 import de.ait.chat.service.EmailService;
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
-import java.util.Optional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -79,8 +80,20 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByEmail(email);
     }
 
-    @Override
-    public Optional<User> getUserById(Long id) {
-        return userRepository.findById(id);
+    public List<User> findUsers(String firstName, String lastName) {
+        List<User> users;
+        if (firstName != null && lastName != null) {
+            users = userRepository.findByFirstNameAndLastName(firstName, lastName);
+        } else if (firstName != null) {
+            users = userRepository.findByFirstName(firstName);
+        } else if (lastName != null) {
+            users = userRepository.findByLastName(lastName);
+        } else {
+            throw new IllegalArgumentException("Both firstName and lastName cannot be null");
+        }
+        if (users == null || users.isEmpty()) {
+            throw new UserNotFoundException("User not found with given criteria");
+        }
+        return users;
     }
 }

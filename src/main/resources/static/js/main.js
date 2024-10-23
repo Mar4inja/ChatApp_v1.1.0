@@ -10,68 +10,67 @@ document.addEventListener('DOMContentLoaded', function() {
     var connectingElement = document.querySelector('.connecting');
     var stompClient = null;
     var username = null;
+    var currentRoom = 'public'; // Variable to store the current room
 
     var colors = [
         '#2196F3', '#32c787', '#00BCD4', '#ff5652',
         '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
     ];
 
-   function connect(event) {
-       username = document.querySelector('#name').value.trim();
+    function connect(event) {
+        event.preventDefault(); // Prevent default form submission
+        username = document.querySelector('#name').value.trim();
 
-       if (username) {
-           if (isLoggedIn()) {
-               usernamePage.classList.add('hidden');
-               chatPage.classList.remove('hidden');
+        if (username) {
+            usernamePage.classList.add('hidden');
+            chatPage.classList.remove('hidden');
 
-               var socket = new SockJS('http://localhost:8080/ws'); // Pārliecinieties, ka šis ir pareizs ceļš
-               stompClient = Stomp.over(socket);
+            var socket = new SockJS('http://localhost:8080/ws');
+            stompClient = Stomp.over(socket);
 
-               stompClient.connect({}, function(frame) {
-                   console.log('Connected: ' + frame);
-                   stompClient.subscribe('/topic/public', onMessageReceived);
-                   stompClient.send("/app/chat.addUser", {}, JSON.stringify({ sender: username, type: 'JOIN' }));
-                   connectingElement.classList.add('hidden');
-               }, function(error) {
-                   console.error('Connection error: ', error);
-                   connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
-                   connectingElement.style.color = 'red';
-               });
-           } else {
-               alert('You must be logged in to enter the chat.');
-           }
-       }
-       event.preventDefault();
-   }
-
-
-    function isLoggedIn() {
-        return document.cookie.split(';').some((item) => item.trim().startsWith('token='));
+            stompClient.connect({}, function(frame) {
+                console.log('Connected: ' + frame);
+                stompClient.subscribe('/topic/public', onMessageReceived);
+                stompClient.send("/app/chat.addUser", {}, JSON.stringify({ sender: username, type: 'JOIN' }));
+                connectingElement.classList.add('hidden');
+            }, function(error) {
+                console.error('Connection error: ', error);
+                connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
+                connectingElement.style.color = 'red';
+            });
+        } else {
+            alert('You must enter a username to enter the chat.');
+        }
     }
 
-    function onConnected() {
-        stompClient.subscribe('/topic/public', onMessageReceived);
-        stompClient.send("/app/chat.addUser", {}, JSON.stringify({ sender: username, type: 'JOIN' }));
-        connectingElement.classList.add('hidden');
+    function createRoom(event) {
+        event.preventDefault(); // Prevent default action
+        const roomName = prompt("Enter room name:");
+        if (roomName) {
+            currentRoom = roomName; // Update current room
+            stompClient.send("/app/chat.createRoom", {}, JSON.stringify({ sender: username, content: roomName, type: 'ROOM_CREATE' }));
+        }
     }
 
-    function onError(error) {
-        connectingElement.textContent = 'Could not connect to WebSocket server. Please refresh this page to try again!';
-        connectingElement.style.color = 'red';
+    function joinRoom(roomName) {
+        currentRoom = roomName; // Update current room
+        stompClient.subscribe(`/topic/${roomName}`, onMessageReceived); // Subscribe to new room
+        stompClient.send("/app/chat.joinRoom", {}, JSON.stringify({ sender: username, type: 'JOIN_ROOM' }));
     }
 
     function sendMessage(event) {
+        event.preventDefault(); // Prevent default form submission
         var messageContent = messageInput.value.trim();
         if (messageContent && stompClient) {
             var chatMessage = {
                 sender: username,
                 content: messageContent,
-                type: 'CHAT'
+                type: 'CHAT',
+                room: currentRoom // Include room name in the message
             };
-            stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
-            messageInput.value = '';
+            stompClient.send(`/app/chat.sendMessage`, {}, JSON.stringify(chatMessage));
+            messageInput.value = ''; // Clear input after sending
         }
-        event.preventDefault();
     }
 
     function onMessageReceived(payload) {
@@ -91,7 +90,6 @@ document.addEventListener('DOMContentLoaded', function() {
             var avatarText = document.createTextNode(message.sender[0]);
             avatarElement.appendChild(avatarText);
             avatarElement.style['background-color'] = getAvatarColor(message.sender);
-
             messageElement.appendChild(avatarElement);
 
             var usernameElement = document.createElement('span');
@@ -103,10 +101,9 @@ document.addEventListener('DOMContentLoaded', function() {
         var textElement = document.createElement('p');
         var messageText = document.createTextNode(message.content);
         textElement.appendChild(messageText);
-
         messageElement.appendChild(textElement);
         messageArea.appendChild(messageElement);
-        messageArea.scrollTop = messageArea.scrollHeight;
+        messageArea.scrollTop = messageArea.scrollHeight; // Scroll to the bottom
     }
 
     function getAvatarColor(messageSender) {
@@ -118,6 +115,8 @@ document.addEventListener('DOMContentLoaded', function() {
         return colors[index];
     }
 
-    usernameForm.addEventListener('submit', connect, true);
-    messageForm.addEventListener('submit', sendMessage, true);
+    // Event listeners
+    usernameForm.addEventListener('submit', connect);
+    messageForm.addEventListener('submit', sendMessage);
+    document.querySelector('#createRoomButton').addEventListener('click', createRoom); // Add event to create a new room
 });
