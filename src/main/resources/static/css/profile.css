@@ -1,0 +1,114 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20% auto 0 auto; /* Отступ сверху на 20% */
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+#user-info {
+    margin-top: 20px;
+}
+
+button {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+nav {
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    position: fixed;
+    top: 0;
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for centering */
+    width: 80%; /* Match the body width */
+    z-index: 1000;
+}
+nav a {
+    color: #2ecc71; /* Zaļa tekstu krāsa */
+    text-decoration: none;
+    padding: 10px 15px; /* Pievienots pildījums ap pogām */
+    border: 2px solid #2ecc71; /* Zaļa robeža ap pogām */
+    border-radius: 5px; /* Noapaļotas malas */
+    transition: background-color 0.3s, color 0.3s; /* Pievienota pāreja, kad krāsas mainās */
+}
+nav a:hover {
+    background-color: #2ecc71; /* Zaļa fona krāsa peldošā efektā */
+    color: white; /* Balts teksts peldošā efektā */
+}
+.navbar-right {
+    display: flex;
+    gap: 20px;
+}
+
+footer {
+    background: #2c3e50; /* Consistent footer color */
+    padding: 10px 0; /* Add vertical padding */
+    color: white;
+    width: 100%; /* Set footer width to 100% */
+    position: relative; /* Keep footer positioned properly */
+    left: 0; /* Align the footer to the left edge */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    flex-direction: column;
+}
+.footer-content {
+    width: 80%; /* Set footer content width to 80% */
+    margin: 0 auto; /* Center the footer content */
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+}
+footer p, footer a, .footer-content span {
+    margin: 0;
+    padding: 5px 0;
+    color: white;
+    text-decoration: none;
+    line-height: 1.5;
+}
+footer a:hover {
+    color: #ff5722;
+}
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+    position: absolute;
+    right: 5cm;
+}
+.social-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5em; /* Increase icon size */
+}
+
+.social-links a:hover {
+    color: #ff5722; /* Orange color on hover */
+}

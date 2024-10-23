@@ -43,4 +43,16 @@ public class UserController {
         List<User> users = userService.findUsers(firstName, lastName);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+        User user = userService.findById(id); // Jaunā metode UserService, lai atrastu lietotāju pēc ID
+        return ResponseEntity.ok(user);
+    }
+    @GetMapping("/by-email")
+    public ResponseEntity<User> getUserByEmail(@RequestParam String email) {
+        User user = userService.findByEmail(email); // Создай соответствующий метод в UserService
+        return ResponseEntity.ok(user);
+    }
+
 }

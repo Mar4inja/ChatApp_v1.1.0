@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (data && data.accessToken) {
                 alert('Login successful!');
                 document.cookie = `token=${data.accessToken}; path=/;`;
-                window.location.href = 'index.html';
+                window.location.href = 'profile.html';
             } else {
                 alert('Login failed: Unknown error');
             }

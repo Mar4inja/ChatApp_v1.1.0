@@ -14,5 +14,5 @@ public interface UserService {
 
     List<User> findUsers(String firstName, String lastName);
 
-//    List<User> findByCity(String city);
+    User findById(Long id);
 }

@@ -96,4 +96,10 @@ public class UserServiceImpl implements UserService {
         }
         return users;
     }
+
+    public User findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+    }
+
 }
