@@ -10,7 +10,6 @@
 
 
     <include file="create_table_user.xml" relativeToChangelogFile="true"/>
-    <include file="create_table_room.xml" relativeToChangelogFile="true"/>
     <include file="create-table-role.xml" relativeToChangelogFile="true"/>
     <include file="create_table_chatMessage.xml" relativeToChangelogFile="true"/>
 

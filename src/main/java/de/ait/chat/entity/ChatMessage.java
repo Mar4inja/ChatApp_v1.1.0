@@ -36,9 +36,6 @@ public class ChatMessage {
     @JoinColumn(name = "user_id") // This will create a foreign key in the chat_message table
     private User user;
 
-    @Column(name = "room_id") // Pievienots room_id kā kolonna
-    private Long roomId; // Identificētājs konkrētai istabai
-
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now(); // Iestata current laiku pirms ieraksta izveides
