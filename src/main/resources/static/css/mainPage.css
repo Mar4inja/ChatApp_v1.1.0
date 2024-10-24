@@ -24,7 +24,7 @@ body::before {
     transform: translateX(-50%); /* Adjust for centering */
     width: 80%; /* Set width to 80% */
     height: 100%;
-    background: url('/images/chatIdeas/6685.jpg') no-repeat center calc(35%); /* Position background */
+    background: url('/images/chatIdeas/main.jpg') no-repeat center calc(35%); /* Position background */
     background-size: cover; /* Cover the entire area */
     filter: blur(1px); /* Apply blur effect */
     opacity: 0.95; /* Reduce opacity to 95% */
@@ -77,15 +77,18 @@ nav a:hover {
     flex-wrap: wrap;
     justify-content: center;
     margin-bottom: 20%;
-    gap: 20px; /* Add spacing between ads */
+    gap: 20px; /* Spacing between ads */
 }
+
 .ad {
     position: relative;
-    padding: 20px;
+    padding: 5px;
     margin: 10px;
     border-radius: 10px;
-    width: 6cm;
-    height: 6cm;
+    width: 100%; /* Responsīvs platums */
+    max-width: 15cm; /* Maksimālais platums */
+    height: auto; /* Automātisks augstums, atkarīgs no satura */
+    min-height: 14cm; /* Minimālais augstums */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -93,46 +96,29 @@ nav a:hover {
     color: white;
     text-decoration: none;
     border: 2px solid rgba(255, 255, 255, 0.788);
-    transition: transform 0.3s ease-in-out;
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(5px); /* Add blur effect to background only */
+    position: relative; /* Nepieciešams pseidoelementam */
+    z-index: 1; /* Saturs būs virs pseidoelementa */
 }
-.ad:hover {
-    transform: scale(1.05);
-    filter: none; /* Remove blur effect on hover */
-}
-.ad-text {
+
+.ad::before {
+    content: "";
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    color: white; /* Ensure text color is clear */
+    top: 0;
+    left: 0;
+    width: 20cm; /* Izstiepts fons horizontāli līdz 20 cm */
+    height: 100%; /* Fona augstums pielāgojas saturam */
+    background-color: white; /* Baltais fons */
+    z-index: -1; /* Novieto fonu zem satura */
+    border-radius: 10px; /* Noapaļoti stūri */
 }
-.ad:hover .ad-text {
-    opacity: 1;
+
+
+.ad img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
 }
-.ad:nth-child(1) {
-    background: url('/images/1.jpg');
-    background-size: cover;
-}
-.ad:nth-child(2) {
-    background: url('/images/2.jpg');
-    background-size: cover;
-}
-.ad:nth-child(3) {
-    background: url('/images/3.jpg');
-    background-size: cover;
-}
-.ad:nth-child(4) {
-    background: url('/images/4.jpg');
-    background-size: cover;
-}
-.ad:nth-child(5) {
-    background: url('/images/5.jpg');
-    background-size: cover;
-}
+
 footer {
     background: #2c3e50; /* Consistent footer color */
     padding: 10px 0; /* Add vertical padding */
