@@ -2,9 +2,9 @@
 
 document.addEventListener('DOMContentLoaded', function() {
     // Your DOM elements
-    var loginForm = document.querySelector('#loginForm');
-    var usernameInput = document.querySelector('#username');
-    var passwordInput = document.querySelector('#password');
+    var loginForm = document.querySelector('#loginForm'); // Ensure the ID matches
+    var usernameInput = document.querySelector('#username'); // Ensure the ID matches
+    var passwordInput = document.querySelector('#password'); // Ensure the ID matches
 
     // Event listener for form submission
     loginForm.addEventListener('submit', login);

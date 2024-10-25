@@ -1,40 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat App Home</title>
-    <link rel="stylesheet" href="css/mainPage.css">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>TalkTown</title>
+    <link rel="stylesheet" href="css/mainPage.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+          integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMp3zP9E3B+P+jF2+2m0Yl9lGG+YYw5j3/px/9i" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-<nav class="navbar">
-    <div class="navbar-right">
-        <a href="login.html" id="loginLink"><i class="fas fa-sign-in-alt"></i> Login</a>
-        <a href="index.html" id="chatLink"><i class="fas fa-comments"></i> Chat</a>
-        <a href="register.html" id="registerLink"><i class="fas fa-user-plus"></i> Register</a>
+<header class="header">
+    <nav class="navbar">
+        <h2 class="logo"><a href="#">Soc-Chatofory</a></h2>
+        <input type="checkbox" id="menu-toggle"/>
+        <label for="menu-toggle" id="hamburger-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
+                <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </label>
+        <ul class="links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Portfolio</a></li>
+            <li><a href="#">Contact Us</a></li>
+        </ul>
+        <div class="buttons">
+            <a href="login.html" class="signin">Sign In</a>
+            <a href="register.html" class="signup">Sign Up</a>
+            <a href="index.html" class="chat">Chat</a>
+        </div>
+    </nav>
+</header>
+<section class="hero-section">
+    <div class="hero">
+        <h2>Meeting New Friends and chat with them</h2>
+        <p>
+            The social chat is a platform that allows you to easily find new friends and start conversations with people
+            from all over the world. Whether you are looking for someone to share your ideas with or simply want to
+            build new relationships, our chat program is the perfect place to start.
+        </p>
+        <div class="buttons">
+            <a href="#" class="join">Join Now</a>
+            <a href="#" class="learn">Learn More</a>
+        </div>
     </div>
-</nav>
-<div class="container">
-    <div class="ads">
-        <a href="#" class="ad">
-            <img src="images/chatIdeas/chat.jpg" alt="Chat with colleagues" class="ad-image">
-        </a>
+    <div class="img">
+        <img src="images/5.jpg" alt="chat image"/>
     </div>
-</div>
+</section>
 <footer>
     <div class="footer-content">
         <span>© 2024 GitHub, Inc. </span>
         <a href="#">Terms</a>
-        <span> | </span>
         <a href="#">Privacy (Updated 08/2022)</a>
-        <span> | </span>
         <a href="#">Sitemap</a>
-        <span> | </span>
         <a href="#">What is Git?</a>
-        <span> | </span>
         <a href="#">Manage cookies</a>
-        <span> | </span>
         <a href="#">Do not share my personal information</a>
     </div>
     <div class="social-links">
@@ -46,3 +69,5 @@
 </footer>
 </body>
 </html>
+
+

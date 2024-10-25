@@ -1,163 +1,137 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@200;300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background: url('/images/realistic-phone-with-social-media.jpg') no-repeat center center;
-    background-size: cover;
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Pilna augstuma centrs */
-    position: relative; /* Pievienot pozīciju, lai iekšējie elementi būtu pareizi */
-    overflow-x: hidden; /* Noņem horizontālo skrolēšanas joslu */
-    overflow-y: hidden ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 0 10px;
 }
 
-nav {
-    background-color: #333;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    color: white;
-    padding: 10px;
-    display: flex;
-    justify-content: flex-end;
-    z-index: 10; /* Nodrošina, ka navigācija ir virs citiem elementiem */
+body::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: url("../images/hero-bg.jpg"), #000;
+  background-position: center;
+  background-size: cover;
 }
 
-nav a {
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
+.wrapper {
+  width: 400px;
+  border-radius: 8px;
+  padding: 30px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
-.navbar-right {
-    display: flex;
-    gap: 20px;
+form {
+  display: flex;
+  flex-direction: column;
 }
 
-.title {
-    text-align: center;
-    margin-bottom: 20px;
+h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #fff;
 }
 
-
-.login-page-container {
-    background: rgba(0, 0, 0, 0.7); /* Tumšs fons ar caurredzamību */
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-    width: 100%;
-    max-width: 400px; /* Maksmālais platums */
-    margin-top: 60px; /* Atstarpe no augšas, lai nebūtu pārliecības ar navigāciju */
-    display: flex;
-    flex-direction: column; /* Izstiept kontēneru vertikāli */
-    align-items: stretch; /* Izstiept visus bērnus uz 100% platumu */
+.input-field {
+  position: relative;
+  border-bottom: 2px solid #ccc;
+  margin: 15px 0;
 }
 
-.form-group {
-    margin-bottom: 15px; /* Atstarpe starp laukiem */
-    flex-grow: 1; /* Ļauj katram laukam pieaugt, lai aizņemtu pieejamo vietu */
+.input-field label {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  color: #fff;
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.15s ease;
 }
 
-.form-control {
-    width: 91%; /* Pilna platuma inputi */
-    padding: 15px; /* Palielināts iekšējais atstarpe */
-    border: 1px solid #ddd;
-    border-radius: 8px; /* Noapaļoti stūri */
-    background-color: #fff; /* Balts fons inputiem */
-    color: #333;
-    font-size: 16px;
-    min-height: 10px; /* Minimālais augstums, lai ievades lauki būtu garāki */
+.input-field input {
+  width: 100%;
+  height: 40px;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: #fff;
 }
 
-.form-control:focus {
-    outline: none;
-    border-color: #007bff; /* Uzmanības krāsa */
+.input-field input:focus~label,
+.input-field input:valid~label {
+  font-size: 0.8rem; /* Smaller font size when focused or not empty */
+  top: 5px; /* Adjusted position of the label */
+  transform: translateY(-120%); /* Move the label up */
 }
 
-.accent {
-    background-color: #007bff; /* Galvenā krāsa pogām */
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
+.forget {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 25px 0 35px 0;
+  color: #fff;
 }
 
-.accent:hover {
-    background-color: #0056b3; /* Tumšāka krāsa hover efektam */
+#remember {
+  accent-color: #fff;
 }
 
-footer {
-    position: absolute;
-    bottom: 0;
-    background: #333;
-    padding: 10px 20px;
-    color: white;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-shrink: 0;
-    flex-direction: column;
+.forget label {
+  display: flex;
+  align-items: center;
 }
 
-.footer-content {
-    display: flex;
-    flex-wrap: nowrap;
-    align-items: center;
-    gap: 10px;
-    white-space: nowrap;
+.forget label p {
+  margin-left: 8px;
 }
 
-footer p, footer a, .footer-content span {
-    margin: 0;
-    padding: 5px 0;
-    color: white;
-    text-decoration: none;
-    line-height: 1.5;
+.wrapper a {
+  color: #efefef;
+  text-decoration: none;
 }
 
-footer a:hover {
-    color: #ff5722;
+.wrapper a:hover {
+  text-decoration: underline;
 }
 
-.social-links {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 10px;
-    position: absolute;
-    right: 5cm;
+button {
+  background: #fff;
+  color: #000;
+  font-weight: 600;
+  border: none;
+  padding: 12px 20px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 16px;
+  border: 2px solid transparent;
+  transition: 0.3s ease;
 }
 
-.social-links a {
-    color: white;
-    text-decoration: none;
-    font-size: 1.5em;
+button:hover {
+  color: #fff;
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.15);
 }
 
-.social-links a:hover {
-    color: #ff5722;
+.register {
+  text-align: center;
+  margin-top: 30px;
+  color: #fff;
 }
-
-/* Media queries */
-@media screen and (max-width: 730px) {
-    .ads {
-        flex-direction: column; /* Sakrīt sludinājumus mazākās ekrānos */
-    }
-    .ad {
-        width: 90%; /* Pilna platuma sludinājumi mazākās ekrānos */
-    }
-}
-
-@media screen and (max-width: 480px) {
-    footer {
-        flex-direction: column; /* Sakrīt kājiņu saites */
-    }
-}
-
