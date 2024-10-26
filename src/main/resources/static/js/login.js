@@ -1,39 +1,34 @@
 'use strict';
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Your DOM elements
-    var loginForm = document.querySelector('#loginForm'); // Ensure the ID matches
-    var usernameInput = document.querySelector('#username'); // Ensure the ID matches
-    var passwordInput = document.querySelector('#password'); // Ensure the ID matches
+    var loginForm = document.querySelector('#loginForm');
+    var usernameInput = document.querySelector('#username');
+    var passwordInput = document.querySelector('#password');
 
-    // Event listener for form submission
     loginForm.addEventListener('submit', login);
 
     function login(event) {
-        event.preventDefault(); // Prevents the default form submission
+        event.preventDefault();
 
-        var email = usernameInput.value.trim(); // Assuming this is the email field
+        var email = usernameInput.value.trim();
         var password = passwordInput.value;
 
-        // Basic email validation
         if (!validateEmail(email)) {
             alert('Please enter a valid email address.');
             return;
         }
 
-        // Login request to the server
+        console.log('Submitting form with email:', email); // Debugging line
+
         fetch('http://localhost:8080/api/users/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
-                email: email,
-                password: password
-            }),
+            body: JSON.stringify({ email: email, password: password }),
         })
         .then(response => {
-            console.log('Response status:', response.status);
+            console.log('Response status:', response.status); // Debugging line
             if (!response.ok) {
                 if (response.status === 401) {
                     alert('Login failed: Invalid credentials.');
@@ -45,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return response.json();
         })
         .then(data => {
-            console.log('Login data:', data);
+            console.log('Login data:', data); // Debugging line
             if (data && data.accessToken) {
                 alert('Login successful!');
                 document.cookie = `token=${data.accessToken}; path=/;`;
@@ -60,9 +55,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Email validation function
     function validateEmail(email) {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(String(email).toLowerCase());
     }
-}); // Ensure this closing parenthesis is present and correctly placed
+});

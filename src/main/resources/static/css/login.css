@@ -31,7 +31,7 @@ body::before {
   border-radius: 8px;
   padding: 30px;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.555);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
 }
@@ -81,6 +81,15 @@ h2 {
   transform: translateY(-120%); /* Move the label up */
 }
 
+/* Стили для автозаполненных полей */
+input:-webkit-autofill {
+  -webkit-text-fill-color: #fff; /* Устанавливает цвет текста */
+  transition: background-color 5000s ease-in-out 0s; /* Сохраняет цвет фона */
+}
+
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff; /* Цвет текста при фокусе */
+}
 .forget {
   display: flex;
   align-items: center;

@@ -13,6 +13,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -34,8 +39,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(x -> x
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // Настройка CORS
+                .sessionManagement(x -> x.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(x -> x
                         .requestMatchers(new AntPathRequestMatcher("/api/v1/auth/**")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
@@ -46,17 +51,29 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/users/activate").permitAll()
                         .requestMatchers("/js/**").permitAll() // Разрешить доступ к JavaScript
-                        .requestMatchers("/css/**").permitAll() // Разрешить доступ к JavaScript
-                        .requestMatchers("/images/**").permitAll() // Permit to pics
+                        .requestMatchers("/css/**").permitAll() // Разрешить доступ к CSS
+                        .requestMatchers("/images/**").permitAll() // Разрешить доступ к изображениям
                         .requestMatchers("/index.html").permitAll() // Разрешить доступ к HTML
                         .requestMatchers("/mainPage.html").permitAll() // Разрешить доступ к HTML
                         .requestMatchers("/login.html").permitAll() // Разрешить доступ к HTML
                         .requestMatchers("/register.html").permitAll() // Разрешить доступ к HTML
-                        .requestMatchers("/chatRules.html").permitAll() // Разрешить доступ к HTML
-
+                        .requestMatchers("/profile.html").permitAll() // Разрешить доступ к HTML
                         .anyRequest().authenticated())
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .addFilterAfter(filter, UsernamePasswordAuthenticationFilter.class)
                 .build();
+    }
+
+    // Настройка CORS
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5500")); // Разрешите ваш фронтенд адрес
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        configuration.setAllowCredentials(true); // Разрешить куки
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration); // Применить к любым URL
+        return source;
     }
 }

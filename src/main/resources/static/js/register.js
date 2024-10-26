@@ -3,8 +3,19 @@
 document.addEventListener('DOMContentLoaded', function () {
     var registrationForm = document.querySelector('#registrationForm');
 
+    // Автоформатирование даты
+    document.getElementById("birthdate").addEventListener("input", function(event) {
+        let value = event.target.value.replace(/\D/g, ""); // Удаляем все, кроме чисел
+        if (value.length > 2 && value.length <= 4) {
+            value = value.slice(0, 2) + "." + value.slice(2); // Добавляем первую точку
+        } else if (value.length > 4) {
+            value = value.slice(0, 2) + "." + value.slice(2, 4) + "." + value.slice(4); // Добавляем обе точки
+        }
+        event.target.value = value;
+    });
+
     registrationForm.addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent default form submission
+        event.preventDefault();
 
         var firstName = document.querySelector('#firstName').value;
         var lastName = document.querySelector('#lastName').value;
@@ -12,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function () {
         var email = document.querySelector('#email').value;
         var password = document.querySelector('#password').value;
 
-        // Prepare registration data object
         var registrationData = {
             firstName: firstName,
             lastName: lastName,
@@ -21,8 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
             password: password
         };
 
-        // Send registration request to the server
-        fetch('http://localhost:8080/api/users/register', { // Ensure this is the correct URL
+        fetch('http://localhost:8080/api/users/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -31,11 +40,9 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(response => {
             if (response.ok) {
-                // If registration is successful
-           alert('Registration successful! A confirmation email has been sent to the address you provided.');
-                window.location.href = 'login.html'; // Redirect to login page
+                alert('Registration successful! A confirmation email has been sent.');
+                window.location.href = 'login.html';
             } else {
-                // If there is an error during registration
                 return response.json().then(errorData => {
                     alert('Registration failed: ' + errorData.message);
                 });
