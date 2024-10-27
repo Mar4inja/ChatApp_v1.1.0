@@ -11,46 +11,30 @@
           crossorigin="anonymous">
 </head>
 <body>
-<header class="header">
-    <nav class="navbar">
-        <h2 class="logo"><a href="#">Soc-Chatofory</a></h2>
-        <input type="checkbox" id="menu-toggle"/>
-        <label for="menu-toggle" id="hamburger-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
-                <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-        </label>
-        <ul class="links">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="profile.html">Profile</a></li>
-            <li><a href="#">Contact Us</a></li>
-        </ul>
-        <div class="buttons">
-            <a href="login.html" class="signin">Sign In</a>
-            <a href="register.html" class="signup">Sign Up</a>
-            <a href="index.html" class="chat">Chat</a>
-       
+    <div id="navbar-placeholder"></div>
+    <section class="hero-section">
+        <div class="hero-wrapper">
+            <div class="hero">
+                <h2>Meeting New Friends and Chat with Them</h2>
+                <p>
+                    The social chat is a platform that allows you to easily find new friends and start conversations with people
+                    from all over the world. Whether you are looking for someone to share your ideas with or simply want to
+                    build new relationships, our chat program is the perfect place to start.
+                </p>
+                <div class="buttons">
+                    <a href="login.html" class="join">Join Now</a>
+                    <a href="aboutUs.html" class="learn">Learn More</a>
+                </div>
+            </div>
+            <div class="img-slider">
+                <img src="images/1.jpg" alt="Image 1" class="slide active">
+                <img src="images/2.jpg" alt="Image 2" class="slide">
+                <img src="images/3.jpg" alt="Image 3" class="slide">
+                <img src="images/4.jpg" alt="Image 4" class="slide">
+            </div>
         </div>
-    </nav>
-</header>
-<section class="hero-section">
-    <div class="hero">
-        <h2>Meeting New Friends and chat with them</h2>
-        <p>
-            The social chat is a platform that allows you to easily find new friends and start conversations with people
-            from all over the world. Whether you are looking for someone to share your ideas with or simply want to
-            build new relationships, our chat program is the perfect place to start.
-        </p>
-        <div class="buttons">
-            <a href="#" class="join">Join Now</a>
-            <a href="#" class="learn">Learn More</a>
-        </div>
-    </div>
-    <div class="img">
-        <img src="images/5.jpg" alt="chat image"/>
-    </div>
-</section>
+    </section>
+    
+<script src="js/mainPage.js"></script>
 </body>
 </html>

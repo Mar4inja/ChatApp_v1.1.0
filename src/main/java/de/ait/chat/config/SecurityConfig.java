@@ -68,12 +68,12 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5500")); // Разрешите ваш фронтенд адрес
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5500", "http://localhost:8080")); // Atļaut jūsu front-end adresi
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
-        configuration.setAllowCredentials(true); // Разрешить куки
+        configuration.setAllowCredentials(true); // Atļaut cookies
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration); // Применить к любым URL
+        source.registerCorsConfiguration("/**", configuration); // Piemērot visiem URL
         return source;
     }
 }

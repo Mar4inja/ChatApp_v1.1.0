@@ -14,6 +14,12 @@ document.addEventListener('DOMContentLoaded', function () {
         event.target.value = value;
     });
 
+    // Функция преобразования даты в формат yyyy-MM-dd
+    function convertDateToISOFormat(dateString) {
+        const [day, month, year] = dateString.split('.');
+        return `${year}-${month}-${day}`;
+    }
+
     registrationForm.addEventListener('submit', function (event) {
         event.preventDefault();
 
@@ -23,10 +29,13 @@ document.addEventListener('DOMContentLoaded', function () {
         var email = document.querySelector('#email').value;
         var password = document.querySelector('#password').value;
 
+        // Преобразуем дату перед отправкой
+        var formattedBirthdate = convertDateToISOFormat(birthdate);
+
         var registrationData = {
             firstName: firstName,
             lastName: lastName,
-            birthdate: birthdate,
+            birthdate: formattedBirthdate,
             email: email,
             password: password
         };
@@ -54,3 +63,15 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+// Ielādē navigācijas joslu no navbar.html
+fetch('navbar.html')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text();
+    })
+    .then(data => {
+        document.getElementById('navbar-placeholder').innerHTML = data; // Ievieto navigācijas joslu HTML
+    })
+    .catch(error => console.error('Error loading navbar:', error)); // Apstrādā kļūdas

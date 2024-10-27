@@ -2,81 +2,167 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Profiles</title>
-    <link rel="stylesheet" href="css/profile.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="css/profile.css"> <!-- Pielāgotais CSS fails -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.5.2/css/ionicons.min.css">
 </head>
 <body>
-    <header class="header">
-        <nav class="navbar">
-            <h2 class="logo"><a href="#">Soc-Chatofory</a></h2>
-            <input type="checkbox" id="menu-toggle"/>
-            <label for="menu-toggle" id="hamburger-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
-                    <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-            </label>
-            <ul class="links">
-                <li><a href="mainPage.html">Home</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">Contact Us</a></li>
-            </ul>
-            <div class="buttons">
-              
+
+    <div class="main-container">
+        <div class="left-sidebar">
+            <div class="inner">
+                <div class="user-profile">
+                    <div class="user-background"></div>
+                    <div class="user-image">
+                        <img src="./images/profile.jpg" alt="User Image">
+                    </div>
+                    <div class="user-info">
+                        <p class="user-name">Martins Groza</p>
+                        <p class="user-title">FullStack Developer</p>
+                        <p class="user-location">
+                            <img src="./images/icons/location.png" alt="Location Icon" class="location-icon"> Dortmund
+                        </p>
+                    </div>
+                </div>
+                <div class="main-menu"></div>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a> <!-- Facebook ikona -->
+                    <a href="#"><i class="fab fa-twitter"></i></a>  <!-- Twitter ikona -->
+                    <a href="#"><i class="fab fa-instagram"></i></a> <!-- Instagram ikona -->
+                </div>
+            </div>
+            <div class="toggle-button">
+                <img src="./images/icons/left-arrow-solid-24.png" alt="Toggle Icon" class="toggle-icon">
+            </div> <!-- Poga, lai slēgtu/atvērtu sānu izvēlni -->
             
-                <a href="index.html" class="chat">Chat</a>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <div class="profiles-wrapper"> <!-- Новый контейнер для обоих профилей -->
-            <div class="wrapper" id="full-profile">
-                <div class="img-area">
-                    <div class="inner-area">
-                        <img src="https://images.unsplash.com/photo-1492288991661-058aa541ff43?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="">
+        </div>
+        <div class="main-content">
+            <div class="modal music-player">
+                <div class="heading">
+                    <h3>Daily UI #009</h3>
+                    <h2>Music Player</h2>
+                </div>
+                <div class="audio-player-large">
+                    <div class="audio-image">
+                        <div class="artist-name">Imagine Dragons</div>
+                        <div class="song-title">Thunder</div>
+                    </div>
+                    <div class="audio-slider">
+                        <div class="slider"></div>
+                    </div>
+                    <div class="audio-buttons">
+                        <div class="previous-btn"><i class="icon ion-md-skip-backward"></i></div>
+                        <div class="pause-btn"><i class="icon ion-md-pause"></i></div>
+                        <div class="next-btn"><i class="icon ion-md-skip-forward"></i></div>
                     </div>
                 </div>
-                <div class="name" id="full-name">First Last</div>
-                <div class="about" id="full-about">About Me</div>
-                <div class="details"></div>
-                <div class="social-icons">
-                    <a href="#" class="fb"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="twitter"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="insta"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="yt"><i class="fab fa-youtube"></i></a>
-                </div>
-                <div class="buttons">
-                    <button>Message</button>
-                    <button>Subscribe</button>
-                </div>
-                <div class="social-share">
-                    <div class="row">
-                        <i class="far fa-heart"></i>
-                        <span>20.4k</span>
+                <div class="audio-player-small">
+                    <div class="audio-background"></div>
+                    <div class="audio-image"></div>
+                    <div class="audio-info">
+                        <div class="audio-text">Now Playing</div>
+                        <div class="song-title">Thunder - Imagine Dragons</div>
                     </div>
-                    <div class="row">
-                        <i class="far fa-comment"></i>
-                        <span>14.3k</span>
-                    </div>
-                    <div class="row">
-                        <i class="fas fa-share"></i>
-                        <span>12.8k</span>
+                    <div class="audio-buttons">
+                        <div class="pause-btn"><i class="icon ion-md-pause"></i></div>
+                        <div class="next-btn"><i class="icon ion-md-skip-forward"></i></div>
                     </div>
                 </div>
             </div>
-
-            <div class="wrapper" id="simple-profile"> <!-- Prasības tagad ir šeit -->
-                <div class="name">First Last</div> <!-- Vārds un uzvārds -->
-                <div id="full-birthdate">Birth Date: </div> <!-- Dzimšanas datums -->
-                <div id="full-email">Email: </div> <!-- E-pasta adrese -->
-                <div class="buttons"> <!-- Poga rediģēšanai atrodas šeit -->
-                    <button class="edit-profile-button">Edit Profile</button> <!-- Poga rediģēšanai -->
+            <div class="modal timer-display">
+                <div class="heading">
+                    <h3>Daily UI #014</h3>
+                    <h2>Countdown Timer</h2>
+                </div>
+                <div class="countdown-timer-large">
+                    <div class="animatedBackground"></div>
+                    <div class="info">
+                        <div class="header">
+                            <h2>Stay Tuned</h2>
+                        </div>
+                        <div class="countdown">
+                            <div>
+                                <p>169</p>
+                                <p>days</p>
+                            </div>
+                            <div>
+                                <p>10</p>
+                                <p>hours</p>
+                            </div>
+                            <div>
+                                <p>31</p>
+                                <p>minutes</p>
+                            </div>
+                            <div>
+                                <p>01</p>
+                                <p>seconds</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="countdown-timer-small">
+                    <div class="backgroundImage"></div>
+                    <div class="countdown">
+                        <div>
+                            <p>169</p>
+                            <p>days</p>
+                        </div>
+                        <div>
+                            <p>10</p>
+                            <p>hours</p>
+                        </div>
+                        <div>
+                            <p>31</p>
+                            <p>minutes</p>
+                        </div>
+                        <div>
+                            <p>01</p>
+                            <p>seconds</p>
+                        </div>
+                    </div>
+                    <div class="animated-clock-face"></div>
                 </div>
             </div>
-        </div> <!-- Закрывающий тег для profiles-wrapper -->
-    </div> <!-- Закрывающий тег для container -->
-
-    <script src="js/profile.js"></script>
+            <div class="direct-messaging minimize">
+                <div class="header-container">
+                    <div>
+                        <img src="./images/profile.jpg" alt="User Image">
+                    </div>
+                    <div class="header-user">
+                        <span>Martins Groza</span>
+                        <span class="online"></span>
+                    </div>
+                    <div class="close-chat-btn"><i class="icon ion-ios-arrow-down"></i></div>
+                </div>
+                <div class="message-container">
+                    <div class="msg received">
+                        <p><span class="time">10:50pm</span></p>
+                        <p class="text">Hi!</p>
+                    </div>
+                    <div class="msg received">
+                        <p class="text">How are you today?</p>
+                    </div>
+                    <div class="msg sent">
+                        <p class="time">10:51pm</p>
+                        <p class="text">Hi Martin, doing good thanks, yourself?</p>
+                    </div>
+                </div>
+                <div class="send-container">
+                    <input class="type-message" placeholder="Your message ..."></input>
+                    <div class="send-btn"><i class="icon ion-md-send"></i></div>
+                </div>
+            </div>
+        </div>
+        <div class="right-sidebar">
+            <div class="btn open-music-btn"><i class="icon ion-md-musical-notes"></i></div>
+            <div class="btn open-timer-btn"><i class="icon ion-md-timer"></i></div>
+            <div class="btn open-chat-btn"><i class="icon ion-md-chatbubbles"></i></div>
+        </div>
+    </div>
+    <div id="navbar-placeholder"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Pievieno jQuery -->
+    <script src="js/profile.js"></script> <!-- Pielāgotais JavaScript fails -->
 </body>
 </html>

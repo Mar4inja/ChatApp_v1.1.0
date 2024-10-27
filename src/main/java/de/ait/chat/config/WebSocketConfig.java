@@ -12,12 +12,15 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic"); // Enable a simple in-memory broker
-        config.setApplicationDestinationPrefixes("/app"); // Set the prefix for messages
+        config.enableSimpleBroker("/topic"); // Aktivizē vienkāršu atmiņas brokeri
+        config.setApplicationDestinationPrefixes("/app"); // Norāda prefiksu ziņojumiem
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/ws").setAllowedOrigins("http://localhost:8080").withSockJS(); // Allow specific origin
+        // Atļauj pieprasījumus no localhost:5500
+        registry.addEndpoint("/ws")
+                .setAllowedOrigins("http://localhost:5500") // Šeit jānorāda pareizais origin
+                .withSockJS(); // Atļaut SockJS
     }
 }

@@ -4,8 +4,15 @@ document.addEventListener('DOMContentLoaded', function() {
     var loginForm = document.querySelector('#loginForm');
     var usernameInput = document.querySelector('#username');
     var passwordInput = document.querySelector('#password');
+    var logoutButton = document.querySelector('#logout-button'); // Pievieno logout pogu
 
+    // Pievieno notikumu klausītāju pieslēgšanās formai
     loginForm.addEventListener('submit', login);
+
+    // Pievieno notikumu klausītāju izrakstīšanās pogai
+    if (logoutButton) {
+        logoutButton.addEventListener('click', logout);
+    }
 
     function login(event) {
         event.preventDefault();
@@ -43,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('Login data:', data); // Debugging line
             if (data && data.accessToken) {
                 alert('Login successful!');
-                document.cookie = `token=${data.accessToken}; path=/;`;
+                document.cookie = `token=${data.accessToken}; path=/;`; // Iestata token
                 window.location.href = 'profile.html';
             } else {
                 alert('Login failed: Unknown error');
@@ -55,8 +62,34 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function logout(event) {
+        event.preventDefault(); // Novērš noklikšķināšanas notikumu
+        // Noņem token un access token no sīkdatnēm
+        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // Pievienojiet šo rindu
+        window.location.href = "login.html"; // Novirza uz pieteikšanās lapu
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        // Pievieno izrakstīšanās saitei notikumu klausītāju
+        document.getElementById('logout-button').addEventListener('click', logout);
+    });
+    
+
     function validateEmail(email) {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(String(email).toLowerCase());
     }
 });
+// Ielādē navigācijas joslu no navbar.html
+fetch('navbar.html')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.text();
+    })
+    .then(data => {
+        document.getElementById('navbar-placeholder').innerHTML = data; // Ievieto navigācijas joslu HTML
+    })
+    .catch(error => console.error('Error loading navbar:', error)); // Apstrādā kļūdas
