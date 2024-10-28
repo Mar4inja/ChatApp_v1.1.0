@@ -1,4 +1,4 @@
-#TalkTown
+#TalkTown Social-chat application
 This is a chat application built with Spring Boot that enables users to communicate in real time. It includes user registration, email confirmation, and authentication for secure interaction.
 
 Features
@@ -7,6 +7,7 @@ Email Confirmation: Users receive an email to confirm their registration.
 User Authentication: Only registered and confirmed users can log in to the application.
 Real-Time Chat: Users can send and receive messages in real time through WebSocket.
 Database Management: User data and chat messages are stored in a database.
+
 
 Technologies Used
 Spring Boot: Simplifies Java application development.
@@ -18,6 +19,7 @@ MySQL/PostgreSQL: Stores user and chat data.
 Thymeleaf: Template engine for rendering web pages.
 JUnit & Spring Security Test: Used for application testing.
 Lombok: Reduces boilerplate code.
+
 
 Getting Started
 Database Setup: Configure MySQL/PostgreSQL and update the settings in application.properties.
