@@ -53,11 +53,7 @@ public class SecurityConfig {
                         .requestMatchers("/js/**").permitAll() // Разрешить доступ к JavaScript
                         .requestMatchers("/css/**").permitAll() // Разрешить доступ к CSS
                         .requestMatchers("/images/**").permitAll() // Разрешить доступ к изображениям
-                        .requestMatchers("/index.html").permitAll() // Разрешить доступ к HTML
-                        .requestMatchers("/mainPage.html").permitAll() // Разрешить доступ к HTML
-                        .requestMatchers("/login.html").permitAll() // Разрешить доступ к HTML
-                        .requestMatchers("/register.html").permitAll() // Разрешить доступ к HTML
-                        .requestMatchers("/profile.html").permitAll() // Разрешить доступ к HTML
+                        .requestMatchers("/**.html").permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .addFilterAfter(filter, UsernamePasswordAuthenticationFilter.class)

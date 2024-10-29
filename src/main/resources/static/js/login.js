@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var loginForm = document.querySelector('#loginForm');
     var usernameInput = document.querySelector('#username');
     var passwordInput = document.querySelector('#password');
-    var logoutButton = document.querySelector('#logout-button'); // Pievieno logout pogu
+    var logoutButton = document.querySelector('#logout-button');
 
     // Pievieno notikumu klausītāju pieslēgšanās formai
     loginForm.addEventListener('submit', login);
@@ -25,62 +25,59 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        console.log('Submitting form with email:', email); // Debugging line
+        console.log('Submitting form with email:', email);
 
         fetch('http://localhost:8080/api/users/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
+            credentials: 'include',  // Iekļauj sīkdatnes pieprasījumos
             body: JSON.stringify({ email: email, password: password }),
         })
         .then(response => {
-            console.log('Response status:', response.status); // Debugging line
             if (!response.ok) {
-                if (response.status === 401) {
-                    alert('Login failed: Invalid credentials.');
-                } else {
-                    alert('Login failed: ' + response.statusText);
-                }
-                throw new Error('Network response was not ok: ' + response.statusText);
+                throw new Error('Network error');
             }
             return response.json();
         })
         .then(data => {
-            console.log('Login data:', data); // Debugging line
-            if (data && data.accessToken) {
-                alert('Login successful!');
-                document.cookie = `token=${data.accessToken}; path=/;`; // Iestata token
-                window.location.href = 'profile.html';
-            } else {
-                alert('Login failed: Unknown error');
-            }
+            alert('Login successful!');
+            window.location.href = 'profile.html';
         })
         .catch(error => {
-            console.error('Error:', error);
-            alert('Login failed: ' + error.message);
+            console.error('Login error:', error);
         });
     }
 
     function logout(event) {
         event.preventDefault(); // Novērš noklikšķināšanas notikumu
-        // Noņem token un access token no sīkdatnēm
-        document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        document.cookie = "accessToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; // Pievienojiet šo rindu
-        window.location.href = "login.html"; // Novirza uz pieteikšanās lapu
+        
+        fetch('http://localhost:8080/api/users/logout', {
+            method: 'POST',
+            credentials: 'include',  // Iekļauj sīkdatnes pieprasījumos
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network error');
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert(data.message); // Parāda ziņu no servera
+            window.location.href = "login.html"; // Novirza uz pieteikšanās lapu
+        })
+        .catch(error => {
+            console.error('Logout error:', error);
+        });
     }
-
-    document.addEventListener("DOMContentLoaded", () => {
-        // Pievieno izrakstīšanās saitei notikumu klausītāju
-        document.getElementById('logout-button').addEventListener('click', logout);
-    });
-    
 
     function validateEmail(email) {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(String(email).toLowerCase());
     }
 });
+
 // Ielādē navigācijas joslu no navbar.html
 fetch('navbar.html')
     .then(response => {

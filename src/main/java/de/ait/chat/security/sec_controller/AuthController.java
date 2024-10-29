@@ -30,10 +30,11 @@ public class AuthController {
         try {
             TokenResponseDto tokenDto = service.login(user);
 
-            Cookie accessTokenCookie = new Cookie("Access-Token", tokenDto.getAccessToken());
+            Cookie accessTokenCookie = new Cookie("accessToken", tokenDto.getAccessToken());
             accessTokenCookie.setPath("/");
             accessTokenCookie.setHttpOnly(true);
             response.addCookie(accessTokenCookie);
+
 
             return ResponseEntity.ok(tokenDto);
 
@@ -62,7 +63,7 @@ public class AuthController {
                         .body(new ErrorResponse("Invalid refresh token or token generation failed"));
             }
 
-            Cookie cookie = new Cookie("Access-Token", tokenDto.getAccessToken());
+            Cookie cookie = new Cookie("accessToken", tokenDto.getAccessToken());
             cookie.setPath("/");
             cookie.setHttpOnly(true);
             response.addCookie(cookie);
