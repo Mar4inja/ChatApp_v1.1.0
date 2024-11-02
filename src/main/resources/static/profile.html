@@ -1,168 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="lv"> <!-- Maina valodu uz latviešu -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Page</title>
-    <link rel="stylesheet" href="css/profile.css"> <!-- Pielāgotais CSS fails -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.5.2/css/ionicons.min.css">
+    <title>Profile Page</title> <!-- Lapas nosaukums -->
+    <link rel="stylesheet" href="css/profile.css"> <!-- Ceļš uz CSS failu -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome ikonas -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/5.5.2/css/ionicons.min.css"> <!-- Ionicons ikonas -->
 </head>
 <body>
 
-    <div class="main-container">
-        <div class="left-sidebar">
-            <div class="inner">
-                <div class="user-profile">
-                    <div class="user-background"></div>
-                    <div class="user-image">
-                        <img src="./images/profile.jpg" alt="User Image">
+    <div class="main-container"> <!-- Galvenais konteiners -->
+        <div class="left-sidebar"> <!-- Kreisā sānjosla -->
+            <div class="inner"> <!-- iekšējais konteiners -->
+                <div class="user-profile"> <!-- Lietotāja profils -->
+                    <div class="user-background"></div> <!-- Lietotāja fona attēls -->
+                    <div class="user-image"> <!-- Lietotāja attēls -->
+                        <img src="./images/profile.jpg" alt="User Image"> <!-- Attēls -->
                     </div>
-                    <div class="user-info">
-                        <p class="user-name">Martins Groza</p>
-                        <p class="user-title">FullStack Developer</p>
+                    <div class="user-info"> <!-- Lietotāja informācija -->
+                        <p class="user-name"></p> <!-- Lietotāja vārds -->
                         <p class="user-location">
                             <img src="./images/icons/location.png" alt="Location Icon" class="location-icon"> Dortmund
                         </p>
+                        <p class="user-email"></p> <!-- Lietotāja e-pasts -->
+                        <p class="user-birth-date"></p> <!-- Lietotāja dzimšanas datums -->
                     </div>
                 </div>
-                <div class="main-menu"></div>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a> <!-- Facebook ikona -->
-                    <a href="#"><i class="fab fa-twitter"></i></a>  <!-- Twitter ikona -->
-                    <a href="#"><i class="fab fa-instagram"></i></a> <!-- Instagram ikona -->
+                <div class="main-menu"></div> <!-- Galvenā izvēlne -->
+                <div class="social-links"> <!-- Sociālie tīkli -->
+                    <a href="#"><i class="fab fa-facebook"></i></a> <!-- Facebook -->
+                    <a href="#"><i class="fab fa-twitter"></i></a> <!-- Twitter -->
+                    <a href="#"><i class="fab fa-instagram"></i></a> <!-- Instagram -->
                 </div>
             </div>
-            <div class="toggle-button">
+            <div class="toggle-button"> <!-- Poga sānjoslas slēgšanai -->
                 <img src="./images/icons/left-arrow-solid-24.png" alt="Toggle Icon" class="toggle-icon">
-            </div> <!-- Poga, lai slēgtu/atvērtu sānu izvēlni -->
-            
+            </div>
         </div>
-        <div class="main-content">
-            <div class="modal music-player">
-                <div class="heading">
-                    <h3>Daily UI #009</h3>
-                    <h2>Music Player</h2>
-                </div>
-                <div class="audio-player-large">
-                    <div class="audio-image">
-                        <div class="artist-name">Imagine Dragons</div>
-                        <div class="song-title">Thunder</div>
-                    </div>
-                    <div class="audio-slider">
-                        <div class="slider"></div>
-                    </div>
-                    <div class="audio-buttons">
-                        <div class="previous-btn"><i class="icon ion-md-skip-backward"></i></div>
-                        <div class="pause-btn"><i class="icon ion-md-pause"></i></div>
-                        <div class="next-btn"><i class="icon ion-md-skip-forward"></i></div>
-                    </div>
-                </div>
-                <div class="audio-player-small">
-                    <div class="audio-background"></div>
-                    <div class="audio-image"></div>
-                    <div class="audio-info">
-                        <div class="audio-text">Now Playing</div>
-                        <div class="song-title">Thunder - Imagine Dragons</div>
-                    </div>
-                    <div class="audio-buttons">
-                        <div class="pause-btn"><i class="icon ion-md-pause"></i></div>
-                        <div class="next-btn"><i class="icon ion-md-skip-forward"></i></div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal timer-display">
-                <div class="heading">
-                    <h3>Daily UI #014</h3>
-                    <h2>Countdown Timer</h2>
-                </div>
-                <div class="countdown-timer-large">
-                    <div class="animatedBackground"></div>
-                    <div class="info">
-                        <div class="header">
-                            <h2>Stay Tuned</h2>
-                        </div>
-                        <div class="countdown">
-                            <div>
-                                <p>169</p>
-                                <p>days</p>
-                            </div>
-                            <div>
-                                <p>10</p>
-                                <p>hours</p>
-                            </div>
-                            <div>
-                                <p>31</p>
-                                <p>minutes</p>
-                            </div>
-                            <div>
-                                <p>01</p>
-                                <p>seconds</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="countdown-timer-small">
-                    <div class="backgroundImage"></div>
-                    <div class="countdown">
-                        <div>
-                            <p>169</p>
-                            <p>days</p>
-                        </div>
-                        <div>
-                            <p>10</p>
-                            <p>hours</p>
-                        </div>
-                        <div>
-                            <p>31</p>
-                            <p>minutes</p>
-                        </div>
-                        <div>
-                            <p>01</p>
-                            <p>seconds</p>
-                        </div>
-                    </div>
-                    <div class="animated-clock-face"></div>
-                </div>
-            </div>
-            <div class="direct-messaging minimize">
-                <div class="header-container">
+        
+        <div class="main-content"> <!-- Galvenais saturs -->
+            <div class="direct-messaging minimize"> <!-- Tiesā ziņojumapmaiņa -->
+                <div class="header-container"> <!-- Galvenes konteiners -->
                     <div>
-                        <img src="./images/profile.jpg" alt="User Image">
+                        <img src="./images/profile.jpg" alt="User Image"> <!-- Lietotāja attēls -->
                     </div>
-                    <div class="header-user">
-                        <span>Martins Groza</span>
-                        <span class="online"></span>
+                    <div class="header-user"> <!-- Lietotāja galvenes daļa -->
+                        <span id="headerUserName"></span> <!-- Lietotāja vārds -->
+                        <span class="online"></span> <!-- Statuss -->
                     </div>
-                    <div class="close-chat-btn"><i class="icon ion-ios-arrow-down"></i></div>
+                    <div class="close-chat-btn"><i class="icon ion-ios-arrow-down"></i></div> <!-- Poga, lai aizvērtu čatu -->
                 </div>
-                <div class="message-container">
-                    <div class="msg received">
+                <div class="message-container"> <!-- Ziņojumu konteiners -->
+                    <div class="msg received"> <!-- Saņemtais ziņojums -->
                         <p><span class="time">10:50pm</span></p>
                         <p class="text">Hi!</p>
                     </div>
-                    <div class="msg received">
+                    <div class="msg received"> <!-- Saņemtais ziņojums -->
                         <p class="text">How are you today?</p>
                     </div>
-                    <div class="msg sent">
+                    <div class="msg sent"> <!-- Nosūtītais ziņojums -->
                         <p class="time">10:51pm</p>
                         <p class="text">Hi Martin, doing good thanks, yourself?</p>
                     </div>
                 </div>
-                <div class="send-container">
-                    <input class="type-message" placeholder="Your message ..."></input>
-                    <div class="send-btn"><i class="icon ion-md-send"></i></div>
+                <div class="send-container"> <!-- Ziņojumu sūtīšanas konteiners -->
+                    <input class="type-message" placeholder="Your message ..."></input> <!-- Ziņojuma ievades lauks -->
+                    <div class="send-btn"><i class="icon ion-md-send"></i></div> <!-- Nosūtīšanas poga -->
                 </div>
             </div>
         </div>
-        <div class="right-sidebar">
-            <div class="btn open-music-btn"><i class="icon ion-md-musical-notes"></i></div>
-            <div class="btn open-timer-btn"><i class="icon ion-md-timer"></i></div>
-            <div class="btn open-chat-btn"><i class="icon ion-md-chatbubbles"></i></div>
+        
+        <div class="right-sidebar"> <!-- Labā sānjosla -->
+            <div class="btn open-chat-btn"><i class="icon ion-md-chatbubbles"></i></div> <!-- Poga, lai atvērtu čatu -->
         </div>
     </div>
-    <div id="navbar-placeholder"></div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Pievieno jQuery -->
-    <script src="js/profile.js"></script> <!-- Pielāgotais JavaScript fails -->
+
+    <div id="navbar-placeholder"></div> <!-- Vietas, kur ielādē navigāciju -->
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Ielādē jQuery -->
+    <script src="js/profile.js"></script> <!-- Ceļš uz JavaScript failu -->
 </body>
 </html>

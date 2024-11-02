@@ -51,8 +51,14 @@ public class UserController {
     }
     @GetMapping("/by-email")
     public ResponseEntity<User> getUserByEmail(@RequestParam String email) {
-        User user = userService.findByEmail(email); // Создай соответствующий метод в UserService
-        return ResponseEntity.ok(user);
+        User user = userService.findByEmail(email);
+
+        if (user == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // Atgriež 404, ja lietotājs nav atrasts
+        }
+
+        return ResponseEntity.ok(user); // Atgriež lietotāju, ja tas atrasts
     }
+
 
 }
