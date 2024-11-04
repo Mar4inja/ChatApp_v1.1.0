@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navbar</title>
-    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="css/navbar.css"> <!-- Saistīts CSS fails -->
 </head>
 <body>
     <header class="header">
@@ -14,8 +16,8 @@
                     <img src="images/logo/9.png" alt="TalkTown Logo"> <!-- Pielāgotais logo attēls -->
                 </a>
             </h2>
-            <input type="checkbox" id="menu-toggle"/>
-            <label for="menu-toggle" id="hamburger-btn">
+            <input type="checkbox" id="menu-toggle"/> <!-- Slēdzis mobilajam menu -->
+            <label for="menu-toggle" id="hamburger-btn"> <!-- Hamburger ikona -->
                 <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24">
                     <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                 </svg>
@@ -23,18 +25,18 @@
             <ul class="links">
                 <li><a href="mainPage.html">Home</a></li>
                 <li><a href="aboutUs.html">About Us</a></li>
-                <li><a href="profile.html">Profile</a></li>
+                <li><a href="profile.html" id="profile-button">Profile</a></li> <!-- Sākotnēji paslēpta -->
                 <li><a href="contactUs.html">Contact Us</a></li>
             </ul>
             <div class="buttons">
-                <a href="login.html" class="login" id="login-button">Sign In</a>
-                <a href="register.html" class="register" id="register-button">Sign Up</a>
+                <a href="login.html" class="login" id="login-button">Sign In</a> <!-- "Sign In" poga -->
+                <a href="register.html" class="register" id="register-button">Sign Up</a> <!-- "Sign Up" poga -->
                 <a href="index.html" class="chat">Chat</a>
-                <a href="#" class="logout" id="logout-button" style="display: none;">Logout</a>
+                <a href="#" class="logout" id="logout-button" style="display: none;">Logout</a> <!-- "Logout" poga, sākotnēji paslēpta -->
             </div>
-            
         </nav>
     </header>
-    <script src="js/navbar.js"></script>
+
+    <script src="js/navbar.js"></script> <!-- JavaScript fails -->
 </body>
 </html>

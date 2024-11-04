@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Coding By CodingNepal - www.codingnepalweb.com -->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,32 +8,31 @@
 </head>
 <body>
     <div id="navbar-placeholder"></div>
-<div class="wrapper">
-    <form id="loginForm"> <!-- Added id for form -->
-        <h2>Login</h2>
-        <div class="input-field">
-            <input type="text" id="username" required> <!-- Added id -->
-            <label>Enter your email</label>
-        </div>
-        <div class="input-field">
-            <input type="password" id="password" required> <!-- Added id -->
-            <label>Enter your password</label>
-        </div>
-        <div class="forget">
-            <label for="remember">
-                <input type="checkbox" id="remember">
-                <p>Remember me</p>
-            </label>
-            <a href="#">Forgot password?</a>
-        </div>
-        <button type="submit">Log In</button>
-        <div class="register">
-            <p>Don't have an account? <a href="register.html">Register</a></p>
-        </div>
-    </form>
-</div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-<script src="js/login.js"></script>
+    <div class="wrapper">
+        <form id="loginForm">
+            <h2>Login</h2>
+            <div class="input-field">
+                <input type="text" id="username" required>
+                <label for="username">Enter your email</label>
+            </div>
+            <div class="input-field">
+                <input type="password" id="password" required>
+                <label for="password">Enter your password</label>
+            </div>
+            <div class="forget">
+                <label for="remember">
+                    <input type="checkbox" id="remember">
+                    <p>Remember me</p>
+                </label>
+                <a href="#">Forgot password?</a>
+            </div>
+            <button type="submit" id="login-button">Log In</button>
+            <div class="register">
+                <p>Don't have an account? <a href="register.html" id="register-button">Register</a></p>
+            </div>
+            <button type="button" id="logout-button" style="display: none;">Logout</button>
+        </form>
+    </div>
+    <script src="js/login.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-body{
+body {
   font-family: "Open Sans", sans-serif;
 }
 
@@ -16,7 +16,6 @@ body{
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px 15px;
-  
 }
 
 .logo img {
@@ -97,47 +96,44 @@ body{
 /* Mobile Styles for Screens Up to 730px */
 @media screen and (max-width: 730px) {
   .ads {
-    flex-direction: column;
+      flex-direction: column;
   }
   .ad {
-    width: 90%;
+      width: 90%;
   }
 }
 
 /* Tablet Styles for Screens Up to 1023px */
 @media screen and (max-width: 1023px) {
   .navbar .logo a {
-    font-size: 1.5rem;
+      font-size: 1.5rem;
   }
   .links {
-    position: fixed;
-    left: -100%;
-    top: 75px;
-    width: 100%;
-    height: 100vh;
-    padding-top: 50px;
-    background: #175d69;
-    flex-direction: column;
-    transition: 0.3s ease;
+      position: fixed;
+      left: -100%;
+      top: 75px;
+      width: 100%;
+      height: 100vh;
+      padding-top: 50px;
+      background: #175d69;
+      flex-direction: column;
+      transition: 0.3s ease;
   }
 
   .navbar #menu-toggle:checked ~ .links {
-    left: 0;
+      left: 0;
   }
 
   .navbar #hamburger-btn {
-    display: block;
+      display: block; /* Rāda hamburger pogu */
   }
 
-  .header .buttons {
-    display: none;
+  .navbar .links a {
+      padding: 15px;
+      font-size: 1.5rem;
   }
-}
 
-/* Mobile Styles for Screens Up to 500px */
-@media screen and (max-width: 500px) {
-  nav {
-    width: 90%;
-    padding: 10px;
+  .navbar .buttons {
+      display: none; /* Paslēpj pogas mobilajās ierīcēs */
   }
 }
