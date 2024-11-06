@@ -7,21 +7,21 @@ spring:
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.xml
 
-#  mail:
-#    host: smtp.gmail.com
-#    port: 587
-#    username: only.for.it.2023@gmail.com
-#    password: ravdokrwfajjrcgg
-#    properties:
-#      mail:
-#        smtp:
-#          auth: true
-#          starttls:
-#            enable: true
-#          ssl:
-#            protocols: TLSv1.2
-#            trust: smtp.gmail.com
-#        debug: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: only.for.it.2023@gmail.com
+    password: ravdokrwfajjrcgg
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            protocols: TLSv1.2
+            trust: smtp.gmail.com
+        debug: true
 
 key:
   access: Dm7QXW4YowIjJcIV/Qbs4u9R/RCCTPqeg7mkhaCJ6tA=
