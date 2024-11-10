@@ -24,9 +24,10 @@ spring:
         debug: true
 
   logging:
+    file:
+      name: logs/log.log
     level:
       root: DEBUG
-      de.ait.chat: DEBUG
 
 key:
   access: Dm7QXW4YowIjJcIV/Qbs4u9R/RCCTPqeg7mkhaCJ6tA=

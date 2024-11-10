@@ -31,7 +31,7 @@ logging:
   file:
     name: logs/log.log
   level:
-    root: info
+    root: DEBUG
 
 app:
   base-url: http://localhost:8080
