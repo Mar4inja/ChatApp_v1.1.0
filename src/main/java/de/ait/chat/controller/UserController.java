@@ -6,6 +6,7 @@ import de.ait.chat.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,6 +36,12 @@ public class UserController {
     public ResponseEntity<String> activateUser(@RequestParam("code") String code) {
         confirmationService.activateUser(code);
         return ResponseEntity.ok("User account activated successfully");
+    }
+
+    @PutMapping("/auth/me")
+    public ResponseEntity<User> updateData(Authentication authentication, @RequestBody User updatedUser) {
+        User user = userService.updateData(authentication, updatedUser);
+        return ResponseEntity.ok(userService.getUserInfo(authentication));
     }
 
     // Lietotāju meklēšana

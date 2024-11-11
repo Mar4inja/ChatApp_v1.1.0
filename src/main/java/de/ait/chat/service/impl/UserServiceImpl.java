@@ -9,12 +9,15 @@ import de.ait.chat.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -49,6 +52,41 @@ public class UserServiceImpl implements UserService {
         emailService.sendConfirmationEmail(user);
         logger.info("User with " + user.getEmail() + " successfully registered");
         return savedUser;
+    }
+
+    @Override
+    public User updateData(Authentication authentication, User updatedUser) {
+        User currentUser = findByEmail(authentication.getName());
+        if (currentUser == null) {
+            throw new IllegalArgumentException("User is not found");
+        }
+
+        Long id = currentUser.getId();
+
+        Optional<User> existingUserOptional = userRepository.findById(id);
+        if (existingUserOptional.isPresent()) {
+            User existingUser = existingUserOptional.get();
+
+            existingUser.setFirstName(updatedUser.getFirstName());
+            existingUser.setLastName(updatedUser.getLastName());
+            existingUser.setBirthdate(updatedUser.getBirthdate());
+            existingUser.setEmail(updatedUser.getEmail());
+            return userRepository.save(existingUser);
+        } else {
+            throw new IllegalArgumentException("User with ID " + updatedUser.getId() + " not found");
+        }
+    }
+
+    @Override
+    public User getUserInfo(Authentication authentication) {
+        String username = authentication.getName();
+        User currentUser = findByEmail(username);
+
+        if (currentUser == null) {
+            throw new NoSuchElementException("User not found");
+        }
+
+        return (currentUser);
     }
 
 

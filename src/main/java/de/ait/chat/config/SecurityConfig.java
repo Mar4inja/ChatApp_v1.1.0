@@ -50,6 +50,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/users/login", "/api/users/access", "/api/users/logout").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/users/activate").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/users/auth/me").authenticated()
                         .requestMatchers("/js/**").permitAll() // Разрешить доступ к JavaScript
                         .requestMatchers("/css/**").permitAll() // Разрешить доступ к CSS
                         .requestMatchers("/images/**").permitAll() // Разрешить доступ к изображениям
