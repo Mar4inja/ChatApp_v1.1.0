@@ -1,23 +1,26 @@
 package de.ait.chat.service;
 
+
 import de.ait.chat.entity.User;
+import de.ait.chat.entity.dto.UserDTO;
 import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
+
 public interface UserService {
 
-    User register(User user);
+  UserDTO register(UserDTO userDTO);
 
-    User updateData(Authentication authentication, User updatedUser);
+    UserDTO updateData(Authentication authentication, UserDTO updatedUserDTO);
 
-    User findByUsername(String username);
+    UserDTO findByUsername(String username);
 
     User findByEmail(String email);
 
-    List<User> findUsers(String firstName, String lastName);
+    List<UserDTO> findUsers(String firstName, String lastName);
 
-    User findById(Long id);
+    UserDTO findById(Long id);
 
-    User getUserInfo(Authentication authentication);
+    UserDTO getUserInfo(Authentication authentication);
 }

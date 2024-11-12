@@ -1,11 +1,13 @@
 package de.ait.chat.service.impl;
 
 import de.ait.chat.entity.User;
+import de.ait.chat.entity.dto.UserDTO;
 import de.ait.chat.exceptions.UserNotFoundException;
 import de.ait.chat.repository.RoleRepository;
 import de.ait.chat.repository.UserRepository;
 import de.ait.chat.service.EmailService;
 import de.ait.chat.service.UserService;
+import de.ait.chat.service.mapping.UserMappingService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +20,6 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -29,76 +30,83 @@ public class UserServiceImpl implements UserService {
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder encoder;
     private final EmailService emailService;
+    private final UserMappingService userMappingService;
 
 
     @Override
-    public User register(User user) {
-        user.setId(null);
-        if (user.getFirstName() == null || user.getFirstName().isEmpty()
-                || user.getLastName() == null || user.getLastName().isEmpty()
-                || user.getBirthdate() == null
-                || user.getEmail() == null || user.getEmail().isEmpty()
-                || user.getPassword() == null || user.getPassword().isEmpty()) {
+    public UserDTO register(UserDTO userDTO) {
+        userDTO.setId(null);
+        if (userDTO.getFirstName() == null || userDTO.getFirstName().isEmpty()
+                || userDTO.getLastName() == null || userDTO.getLastName().isEmpty()
+                || userDTO.getBirthdate() == null
+                || userDTO.getEmail() == null || userDTO.getEmail().isEmpty()
+                || userDTO.getPassword() == null || userDTO.getPassword().isEmpty()) {
             throw new IllegalArgumentException("All fields are required");
         }
-        if (userRepository.findByEmail(user.getEmail()) != null) {
+        if (userRepository.findByEmail(userDTO.getEmail()) != null) {
             throw new IllegalArgumentException("Email address already in use");
         }
-        user.setRoles(Collections.singleton(roleRepository.findByTitle("ROLE_USER")));
-        validatePassword(user.getPassword());
-        user.setRegistrationDate(LocalDateTime.now());
-        user.setPassword(encoder.encode(user.getPassword()));
-        user.setActive(false);
+        userDTO.setRoles(Collections.singleton(roleRepository.findByTitle("ROLE_USER")));
+        validatePassword(userDTO.getPassword());
+        userDTO.setRegistrationDate(LocalDateTime.now());
+        userDTO.setPassword(encoder.encode(userDTO.getPassword()));
+        userDTO.setActive(false);
+        User user = userMappingService.mapDtoToEntity(userDTO);
         User savedUser = userRepository.save(user);
         emailService.sendConfirmationEmail(user);
-        logger.info("User with " + user.getEmail() + " successfully registered");
-        return savedUser;
+        logger.info("User with " + userDTO.getEmail() + " successfully registered");
+        return userMappingService.mapEntityToDto(savedUser);
     }
 
     @Override
-    public User updateData(Authentication authentication, User updatedUser) {
-        User currentUser = findByEmail(authentication.getName());
-        if (currentUser == null) {
-            throw new IllegalArgumentException("User is not found");
+    public UserDTO updateData(Authentication authentication, UserDTO updatedUserDTO) {
+        User currentUserDTO = findByEmail(authentication.getName());
+
+        if (currentUserDTO == null) {
+            throw new IllegalArgumentException("User not found");
         }
 
-        Long id = currentUser.getId();
+        boolean isUpdated = false;
 
-        Optional<User> existingUserOptional = userRepository.findById(id);
-        if (existingUserOptional.isPresent()) {
-            User existingUser = existingUserOptional.get();
+        // Atjaunojam pirmo vārdu, ja tas ir norādīts
+        if (currentUserDTO.getFirstName() != null) {
+            currentUserDTO.setFirstName(currentUserDTO.getFirstName());
+            isUpdated = true;
+        }
 
+        // Atjaunojam uzvārdu, ja tas ir norādīts
+        if (currentUserDTO.getLastName() != null) {
+            currentUserDTO.setLastName(currentUserDTO.getLastName());
+            isUpdated = true;
+        }
 
-            if (updatedUser.getFirstName() != null) {
-                existingUser.setFirstName(updatedUser.getFirstName());
-            }
-            if (updatedUser.getLastName() != null) {
-                existingUser.setLastName(updatedUser.getLastName());
-            }
+        // Atjaunojam dzimšanas datumu, ja tas ir norādīts
+        if (currentUserDTO.getBirthdate() != null) {
+            currentUserDTO.setBirthdate(currentUserDTO.getBirthdate());
+            isUpdated = true;
+        }
 
-            if (updatedUser.getBirthdate() != null) {
-                existingUser.setBirthdate(updatedUser.getBirthdate());
-            }
-
-            // Сохраняем обновленного пользователя в базе данных и возвращаем его
-            return userRepository.save(existingUser);
+        // Ja kaut kas tika atjaunināts, saglabājam to datu bāzē
+        if (isUpdated) {
+            return userMappingService.mapEntityToDto(userRepository.save(currentUserDTO));
         } else {
-            // Если пользователь с указанным ID не найден, бросаем исключение
-            throw new IllegalArgumentException("User with ID " + updatedUser.getId() + " not found");
+            throw new IllegalArgumentException("No valid fields to update");
         }
     }
 
+
     @Override
-    public User getUserInfo(Authentication authentication) {
+    public UserDTO getUserInfo(Authentication authentication) {
         String username = authentication.getName();
-        User currentUser = findByEmail(username);
+        User currentUser = findByEmail(username);  // Šeit atgriež User, nevis UserDTO
 
         if (currentUser == null) {
             throw new NoSuchElementException("User not found");
         }
 
-        return (currentUser);
+        return userMappingService.mapEntityToDto(currentUser);  // Pārvērst User uz UserDTO
     }
+
 
 
     private void validatePassword(String password) {
@@ -120,17 +128,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(String username) {
-        return userRepository.findByEmail(username); // Assuming email is used as the username
+    public UserDTO findByUsername(String username) {
+        User user = userRepository.findByEmail(username); // Assuming email is used as the username
+        if (user == null) {
+            throw new UserNotFoundException("User not found with email: " + username);
+        }
+        return userMappingService.mapEntityToDto(user); // Pārvērst User uz UserDTO
     }
+
+
 
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
-    public List<User> findUsers(String firstName, String lastName) {
-        List<User> users;
+    public List<UserDTO> findUsers(String firstName, String lastName) {
+        List<UserDTO> users;
         if (firstName != null && lastName != null) {
             users = userRepository.findByFirstNameAndLastName(firstName, lastName);
         } else if (firstName != null) {
@@ -146,9 +160,12 @@ public class UserServiceImpl implements UserService {
         return users;
     }
 
-    public User findById(Long id) {
-        return userRepository.findById(id)
+    public UserDTO findById(Long id) {
+        User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+
+        // Pārvēršam User entitāti uz UserDTO
+        return userMappingService.mapEntityToDto(user);
     }
 
 }

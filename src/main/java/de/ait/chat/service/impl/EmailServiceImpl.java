@@ -1,6 +1,7 @@
 package de.ait.chat.service.impl;
 
 import de.ait.chat.entity.User;
+import de.ait.chat.entity.dto.UserDTO;
 import de.ait.chat.service.ConfirmationService;
 import de.ait.chat.service.EmailService;
 import freemarker.cache.ClassTemplateLoader;
@@ -47,7 +48,7 @@ public class EmailServiceImpl implements EmailService {
 
         try {
             helper.setFrom("only.for.it.2023@gmail.com");
-            helper.setTo(user.getUsername());
+            helper.setTo(user.getEmail());
             helper.setSubject("Registration Confirmation");
             helper.setText(text, true);
         } catch (Exception e) {
@@ -62,7 +63,7 @@ public class EmailServiceImpl implements EmailService {
             String code = confirmationService.generateConfirmationCode(user);
 
             Map<String, Object> model = new HashMap<>();
-            model.put("name", user.getUsername());
+            model.put("name", user.getEmail());
             model.put("link", baseUrl + "/api/users/activate?code=" + code);
 
             return FreeMarkerTemplateUtils.processTemplateIntoString(template, model);

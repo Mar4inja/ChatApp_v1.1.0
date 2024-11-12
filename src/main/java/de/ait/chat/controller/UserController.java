@@ -1,6 +1,7 @@
 package de.ait.chat.controller;
 
 import de.ait.chat.entity.User;
+import de.ait.chat.entity.dto.UserDTO;
 import de.ait.chat.service.ConfirmationService;
 import de.ait.chat.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +23,9 @@ public class UserController {
 
     // Reģistrācijas metode
     @PostMapping("/register")
-    public ResponseEntity<User> register(@RequestBody User user) {
+    public ResponseEntity<UserDTO> register(@RequestBody UserDTO userDTO) {
         try {
-            User savedUser = userService.register(user);
+            UserDTO savedUser = userService.register(userDTO);
             return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(null);
@@ -39,24 +40,29 @@ public class UserController {
     }
 
     @PutMapping("/auth/me")
-    public ResponseEntity<User> updateUser(Authentication authentication, @RequestBody User updatedUser) {
-        userService.updateData(authentication, updatedUser);
+    public ResponseEntity<UserDTO> updateUser(Authentication authentication, @RequestBody UserDTO updatedUserDTO) {
+        userService.updateData(authentication, updatedUserDTO);
         return ResponseEntity.ok(userService.getUserInfo(authentication));
     }
 
+    @GetMapping("/auth/me")
+    public ResponseEntity<UserDTO> getUserInfo(Authentication authentication) {
+        UserDTO userInfo = userService.getUserInfo(authentication);
+        return ResponseEntity.ok(userInfo);
+    }
 
     // Lietotāju meklēšana
     @GetMapping("/search")
-    public ResponseEntity<List<User>> searchUsers(@RequestParam(required = false) String firstName,
+    public ResponseEntity<List<UserDTO>> searchUsers(@RequestParam(required = false) String firstName,
                                                   @RequestParam(required = false) String lastName) {
-        List<User> users = userService.findUsers(firstName, lastName);
+        List<UserDTO> users = userService.findUsers(firstName, lastName);
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     // Lietotāja atrašana pēc ID
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        User user = userService.findById(id);
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
+        UserDTO user = userService.findById(id);
         return ResponseEntity.ok(user);
     }
 

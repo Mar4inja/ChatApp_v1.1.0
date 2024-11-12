@@ -1,6 +1,7 @@
 package de.ait.chat.service.impl;
 import de.ait.chat.entity.ConfirmationCode;
 import de.ait.chat.entity.User;
+import de.ait.chat.entity.dto.UserDTO;
 import de.ait.chat.exceptions.ConfirmationCodeExpiredException;
 import de.ait.chat.exceptions.ConfirmationCodeNotFoundException;
 import de.ait.chat.repository.ConfirmationCodeRepository;

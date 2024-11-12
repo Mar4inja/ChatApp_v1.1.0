@@ -1,5 +1,6 @@
 package de.ait.chat.entity;
 
+import de.ait.chat.entity.dto.UserDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
