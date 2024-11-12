@@ -9,6 +9,7 @@ import de.ait.chat.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -67,12 +68,22 @@ public class UserServiceImpl implements UserService {
         if (existingUserOptional.isPresent()) {
             User existingUser = existingUserOptional.get();
 
-            existingUser.setFirstName(updatedUser.getFirstName());
-            existingUser.setLastName(updatedUser.getLastName());
-            existingUser.setBirthdate(updatedUser.getBirthdate());
-            existingUser.setEmail(updatedUser.getEmail());
+
+            if (updatedUser.getFirstName() != null) {
+                existingUser.setFirstName(updatedUser.getFirstName());
+            }
+            if (updatedUser.getLastName() != null) {
+                existingUser.setLastName(updatedUser.getLastName());
+            }
+
+            if (updatedUser.getBirthdate() != null) {
+                existingUser.setBirthdate(updatedUser.getBirthdate());
+            }
+
+            // Сохраняем обновленного пользователя в базе данных и возвращаем его
             return userRepository.save(existingUser);
         } else {
+            // Если пользователь с указанным ID не найден, бросаем исключение
             throw new IllegalArgumentException("User with ID " + updatedUser.getId() + " not found");
         }
     }

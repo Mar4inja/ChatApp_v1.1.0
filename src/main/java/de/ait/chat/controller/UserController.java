@@ -39,10 +39,11 @@ public class UserController {
     }
 
     @PutMapping("/auth/me")
-    public ResponseEntity<User> updateData(Authentication authentication, @RequestBody User updatedUser) {
-        User user = userService.updateData(authentication, updatedUser);
+    public ResponseEntity<User> updateUser(Authentication authentication, @RequestBody User updatedUser) {
+        userService.updateData(authentication, updatedUser);
         return ResponseEntity.ok(userService.getUserInfo(authentication));
     }
+
 
     // Lietotāju meklēšana
     @GetMapping("/search")

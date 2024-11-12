@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class AspectLogging {
 
-    private Logger logger = LoggerFactory.getLogger(AspectLogging.class);
+    private final Logger logger = LoggerFactory.getLogger(AspectLogging.class);
 
     @Around("userServiceMethods()")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -32,7 +32,7 @@ public class AspectLogging {
         }
     }
 
-    @Pointcut("execution(* de.aittr.project_wishlist.service.impl.UserServiceImpl.*(..))")
+    @Pointcut("execution(* de/ait/chat/service/impl/UserServiceImpl.*(..))")
     public void userServiceMethods() {}
 
 }

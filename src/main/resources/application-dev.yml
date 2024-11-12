@@ -27,11 +27,17 @@ key:
   access: Dm7QXW4YowIjJcIV/Qbs4u9R/RCCTPqeg7mkhaCJ6tA=
   refresh: 3zT4pEV8P/GQ6hTpjaZTsY8KRft4l6l0qtaCgWk5djg=
 
-logging:
-  file:
-    name: logs/log.log
-  level:
-    root: DEBUG
+
 
 app:
   base-url: http://localhost:8080
+
+  logging:
+    file:
+      name: logs/log.log
+    level:
+      root: DEBUG
+    pattern:
+      console: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"
+    console:
+      enabled: true

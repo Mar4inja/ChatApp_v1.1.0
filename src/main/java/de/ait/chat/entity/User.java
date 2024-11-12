@@ -37,15 +37,18 @@ public class User implements UserDetails {
     @Size(max = 30, message = "Max 30 symbols")
     @Pattern(regexp = "[a-zA-Z]+", message = "First name must contain only letters")
     @Schema(description = "User firstName", example = "James")
+    @NotNull
     private String firstName;
 
     @Column(name = "last_name")
     @Size(max = 30, message = "Max 30 symbols")
     @Pattern(regexp = "[a-zA-Z]+", message = "Last name must contain only letters")
     @Schema(description = "User lastName", example = "May")
+    @NotNull
     private String lastName;
 
     @Column(name = "birth_date")
+    @NotNull
     private LocalDate birthdate;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -60,6 +63,7 @@ public class User implements UserDetails {
     @Size(max = 30, message = "Max 30 symbols")
     @Email(message = "Invalid email format!")
     @Schema(description = "User email", example = "may@gmail.com")
+    @NotNull
     private String email;
 
     @Column(name = "password")

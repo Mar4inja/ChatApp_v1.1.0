@@ -23,11 +23,6 @@ spring:
             trust: smtp.gmail.com
         debug: true
 
-  logging:
-    file:
-      name: logs/log.log
-    level:
-      root: DEBUG
 
 key:
   access: Dm7QXW4YowIjJcIV/Qbs4u9R/RCCTPqeg7mkhaCJ6tA=
@@ -35,3 +30,13 @@ key:
 
 app:
   base-url: http://localhost:8080
+
+logging:
+  file:
+    name: logs/log.log
+  level:
+    root: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n"
+  console:
+    enabled: true
