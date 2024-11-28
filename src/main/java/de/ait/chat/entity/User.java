@@ -76,7 +76,6 @@ public class User implements UserDetails {
     @CreationTimestamp
     private LocalDateTime registrationDate;
 
-    // TODO Change class to DTO class
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
