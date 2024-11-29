@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
@@ -36,7 +37,7 @@ public class TokenService {
         }
 
         // Проверяем, что необходимые поля пользователя не равны null
-        if (user.getEmail() == null || user.getFirstName() == null || user.getLastName() == null) {
+        if (user.getEmail() == null || user.getFirstName() == null || user.getLastName() == null || user.getBirthdate() == null) {
             throw new IllegalArgumentException("User email, first name, and last name must not be null");
         }
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -49,6 +50,7 @@ public class TokenService {
                 .signWith(accessKey)
                 .claim("roles", user.getAuthorities())
                 .claim("name", user.getFirstName() + " " + user.getLastName())
+                .claim("birthDate", user.getBirthdate().toString())
                 .compact();
     }
 
@@ -96,6 +98,8 @@ public class TokenService {
 
     public AuthInfo generateAuthInfo(Claims claims) {
         String username = claims.getSubject();
+
+        // Getting roles from the claims
         List<LinkedHashMap<String, String>> rolesList = (List<LinkedHashMap<String, String>>) claims.get("roles");
         Set<Role> roles = new HashSet<>();
 
@@ -105,6 +109,12 @@ public class TokenService {
             roles.add(role);
         }
 
-        return new AuthInfo(roles, username);
+        // Extracting birthDate as String from the claims and then parsing it to LocalDate
+        String birthDateString = (String) claims.get("birthDate");
+        LocalDate birthDate = LocalDate.parse(birthDateString);  // Convert the String to LocalDate
+
+        // Creating and returning the AuthInfo object
+        return new AuthInfo(roles, username, birthDate);
     }
+
 }
