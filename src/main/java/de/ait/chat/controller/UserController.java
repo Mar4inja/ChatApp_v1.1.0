@@ -4,7 +4,11 @@ import de.ait.chat.entity.User;
 import de.ait.chat.entity.dto.UserDTO;
 import de.ait.chat.service.ConfirmationService;
 import de.ait.chat.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -13,13 +17,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-
 @RequestMapping("/api/users") // Bāzes URL
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
     private final ConfirmationService confirmationService;
+    private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     // Reģistrācijas metode
     @PostMapping("/register")
@@ -40,8 +44,8 @@ public class UserController {
     }
 
     @PutMapping("/auth/me")
-    public ResponseEntity<UserDTO> updateUser(Authentication authentication, @RequestBody UserDTO updatedUserDTO) {
-        userService.updateData(authentication, updatedUserDTO);
+    public ResponseEntity<UserDTO> updateUser(Authentication authentication, @RequestBody UserDTO updatedUserDto) {
+        userService.updateData(authentication, updatedUserDto);
         return ResponseEntity.ok(userService.getUserInfo(authentication));
     }
 
@@ -51,13 +55,47 @@ public class UserController {
         return ResponseEntity.ok(userInfo);
     }
 
-    // Lietotāju meklēšana
     @GetMapping("/search")
-    public ResponseEntity<List<UserDTO>> searchUsers(@RequestParam(required = false) String firstName,
-                                                  @RequestParam(required = false) String lastName) {
+    public ResponseEntity<List<UserDTO>> searchUsers(
+            @RequestParam(required = false) String firstName,
+            @RequestParam(required = false) String lastName) {
+
         List<UserDTO> users = userService.findUsers(firstName, lastName);
-        return new ResponseEntity<>(users, HttpStatus.OK);
+
+        if (users.isEmpty()) {
+            return ResponseEntity.noContent().build(); // 204 No Content
+        }
+
+        return ResponseEntity.ok(users); // 200 OK
     }
+
+
+    // Lietotāju meklēšana pēc firstName
+    @GetMapping("/search/firstName")
+    public ResponseEntity<List<UserDTO>> searchUsersByFirstName(@RequestParam(required = false) String firstName) {
+        log.info("Searching for users by firstName={}", firstName);
+        List<UserDTO> users = userService.findByFirstName(firstName);
+
+        if (users.isEmpty()) {
+            log.info("No users found with the given firstName");
+            return ResponseEntity.noContent().build(); // Возвращает 204 No Content
+        }
+        return ResponseEntity.ok(users);
+    }
+
+    // Lietotāju meklēšana pēc lastName
+    @GetMapping("/search/by-lastName")
+    public ResponseEntity<List<UserDTO>> searchUsersByLastName(@RequestParam(required = false) String lastName) {
+        log.info("Searching for users by lastName={}", lastName);
+        List<UserDTO> users = userService.findByLastName(lastName);
+
+        if (users.isEmpty()) {
+            log.info("No users found with the given lastName");
+            return ResponseEntity.noContent().build(); // Возвращает 204 No Content
+        }
+        return ResponseEntity.ok(users);
+    }
+
 
     // Lietotāja atrašana pēc ID
     @GetMapping("/{id}")
@@ -71,7 +109,7 @@ public class UserController {
     public ResponseEntity<User> getUserByEmail(@RequestParam String email) {
         User user = userService.findByEmail(email);
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // Atgriež 404, ja lietotājs nav atrasts
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // Atgriež 404
         }
         return ResponseEntity.ok(user); // Atgriež lietotāju
     }

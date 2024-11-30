@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -60,35 +61,35 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO updateData(Authentication authentication, UserDTO updatedUserDTO) {
-        User currentUserDTO = findByEmail(authentication.getName());
-
-        if (currentUserDTO == null) {
+        // Iegūstam pašreizējo lietotāju pēc e-pasta
+        User currentUser = findByEmail(authentication.getName());
+        if (currentUser == null) {
             throw new IllegalArgumentException("User not found");
         }
 
         boolean isUpdated = false;
 
-        // Atjaunojam pirmo vārdu, ja tas ir norādīts
-        if (currentUserDTO.getFirstName() != null) {
-            currentUserDTO.setFirstName(currentUserDTO.getFirstName());
+        // Pārbauda un atjaunina vārdu
+        if (updatedUserDTO.getFirstName() != null && !updatedUserDTO.getFirstName().isEmpty()) {
+            currentUser.setFirstName(updatedUserDTO.getFirstName());
             isUpdated = true;
         }
 
-        // Atjaunojam uzvārdu, ja tas ir norādīts
-        if (currentUserDTO.getLastName() != null) {
-            currentUserDTO.setLastName(currentUserDTO.getLastName());
+        // Pārbauda un atjaunina uzvārdu
+        if (updatedUserDTO.getLastName() != null && !updatedUserDTO.getLastName().isEmpty()) {
+            currentUser.setLastName(updatedUserDTO.getLastName());
             isUpdated = true;
         }
 
-        // Atjaunojam dzimšanas datumu, ja tas ir norādīts
-        if (currentUserDTO.getBirthdate() != null) {
-            currentUserDTO.setBirthdate(currentUserDTO.getBirthdate());
+        // Pārbauda un atjaunina dzimšanas datumu
+        if (updatedUserDTO.getBirthdate() != null) {
+            currentUser.setBirthdate(updatedUserDTO.getBirthdate());
             isUpdated = true;
         }
 
-        // Ja kaut kas tika atjaunināts, saglabājam to datu bāzē
+        // Ja bija atjauninājumi, saglabā tos
         if (isUpdated) {
-            return userMappingService.mapEntityToDto(userRepository.save(currentUserDTO));
+            return userMappingService.mapEntityToDto(userRepository.save(currentUser));
         } else {
             throw new IllegalArgumentException("No valid fields to update");
         }
@@ -106,6 +107,52 @@ public class UserServiceImpl implements UserService {
 
         return userMappingService.mapEntityToDto(currentUser);  // Pārvērst User uz UserDTO
     }
+
+    @Override
+    public List<UserDTO> findByFirstName(String firstName) {
+        // Pārbauda, vai firstName ir null
+        if (firstName == null || firstName.isEmpty()) {
+            throw new IllegalArgumentException("Vārds nedrīkst būt null vai tukšs");
+        }
+        // Meklē lietotājus pēc pirmā vārda
+        return userRepository.findByFirstName(firstName); // Jau atgriež List<UserDTO>
+    }
+
+    @Override
+    public List<UserDTO> findByLastName(String lastName) {
+        // Pārbauda, vai lastName ir null
+        if (lastName == null || lastName.isEmpty()) {
+            throw new IllegalArgumentException("Uzvārds nedrīkst būt null vai tukšs");
+        }
+        // Meklē lietotājus pēc uzvārda
+        return userRepository.findByLastName(lastName); // Jau atgriež List<UserDTO>
+    }
+
+    public List<UserDTO> findByNameAndLastName(String firstName, String lastName) {
+        List<UserDTO> users;
+        // Ja abi parametri ir norādīti
+        if (firstName != null && lastName != null) {
+            users = userRepository.findByFirstNameAndLastName(firstName, lastName);
+        }
+        // Ja tikai firstName ir norādīts
+        else if (firstName != null) {
+            users = userRepository.findByFirstName(firstName);
+        }
+        // Ja tikai lastName ir norādīts
+        else if (lastName != null) {
+            users = userRepository.findByLastName(lastName);
+        }
+        // Ja abi parametri ir null
+        else {
+            throw new IllegalArgumentException("Both firstName and lastName cannot be null");
+        }
+        // Ja nav atrasti lietotāji
+        if (users == null || users.isEmpty()) {
+            throw new UserNotFoundException("User not found with given criteria");
+        }
+        return users;
+    }
+
 
 
 

@@ -24,7 +24,7 @@ public class AuthInfo implements Authentication {
         this.birthDate = birthDate;
     }
 
-    // Getters and Setters
+
     public String getUsername() {
         return username;
     }

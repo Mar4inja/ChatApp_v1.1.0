@@ -20,7 +20,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         // Atļauj pieprasījumus no localhost:5500
         registry.addEndpoint("/ws")
-                .setAllowedOrigins("http://localhost:5500") // Šeit jānorāda pareizais origin
+                .setAllowedOrigins("http://localhost:5500", "http://localhost:3000") // Šeit jānorāda pareizais origin
                 .withSockJS(); // Atļaut SockJS
     }
 }

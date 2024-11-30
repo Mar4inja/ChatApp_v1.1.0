@@ -23,4 +23,10 @@ public interface UserService {
     UserDTO findById(Long id);
 
     UserDTO getUserInfo(Authentication authentication);
+
+  List<UserDTO> findByFirstName(String firstName);
+
+  List<UserDTO> findByLastName(String lastName);
+
+  List<UserDTO> findByNameAndLastName(String firstName, String lastName);
 }
