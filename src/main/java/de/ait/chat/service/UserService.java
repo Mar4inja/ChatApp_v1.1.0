@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface UserService {
 
-  UserDTO register(UserDTO userDTO);
+    UserDTO register(UserDTO userDTO);
 
     UserDTO updateData(Authentication authentication, UserDTO updatedUserDTO);
 
@@ -24,9 +24,5 @@ public interface UserService {
 
     UserDTO getUserInfo(Authentication authentication);
 
-  List<UserDTO> findByFirstName(String firstName);
-
-  List<UserDTO> findByLastName(String lastName);
-
-  List<UserDTO> findByNameAndLastName(String firstName, String lastName);
+    List<UserDTO> findUserByCriteria(String firstName, String lastName);
 }

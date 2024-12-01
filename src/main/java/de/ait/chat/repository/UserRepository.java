@@ -11,13 +11,13 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByEmail(String email);
 
-    // Ja vēlaties izmantot DTO tieši vaicājumos
-    @Query("SELECT new de.ait.chat.entity.dto.UserDTO(u.firstName, u.lastName) FROM User u WHERE u.firstName = :firstName AND u.lastName = :lastName")
+    @Query("SELECT new de.ait.chat.entity.dto.UserDTO(u.firstName, u.lastName) FROM User u WHERE LOWER(TRIM(u.firstName)) = LOWER(TRIM(:firstName)) AND LOWER(TRIM(u.lastName)) = LOWER(TRIM(:lastName))")
     List<UserDTO> findByFirstNameAndLastName(@Param("firstName") String firstName, @Param("lastName") String lastName);
 
-    @Query("SELECT new de.ait.chat.entity.dto.UserDTO(u.firstName, u.lastName) FROM User u WHERE u.firstName = :firstName")
+    @Query("SELECT new de.ait.chat.entity.dto.UserDTO(u.firstName, u.lastName) FROM User u WHERE LOWER(TRIM(u.firstName)) = LOWER(TRIM(:firstName))")
     List<UserDTO> findByFirstName(@Param("firstName") String firstName);
 
-    @Query("SELECT new de.ait.chat.entity.dto.UserDTO(u.firstName, u.lastName) FROM User u WHERE u.lastName = :lastName")
+    @Query("SELECT new de.ait.chat.entity.dto.UserDTO(u.firstName, u.lastName) FROM User u WHERE LOWER(TRIM(u.lastName)) = LOWER(TRIM(:lastName))")
     List<UserDTO> findByLastName(@Param("lastName") String lastName);
+
 }

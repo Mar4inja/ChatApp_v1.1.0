@@ -2,6 +2,7 @@ package de.ait.chat.controller;
 
 import de.ait.chat.entity.User;
 import de.ait.chat.entity.dto.UserDTO;
+import de.ait.chat.exceptions.UserNotFoundException;
 import de.ait.chat.service.ConfirmationService;
 import de.ait.chat.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,12 +17,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api/users") // Bāzes URL
 @RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
     private final ConfirmationService confirmationService;
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
@@ -55,46 +58,25 @@ public class UserController {
         return ResponseEntity.ok(userInfo);
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<List<UserDTO>> searchUsers(
+    @GetMapping("/findUser")
+    public ResponseEntity<List<UserDTO>> findUserByCriteria(
             @RequestParam(required = false) String firstName,
             @RequestParam(required = false) String lastName) {
 
-        List<UserDTO> users = userService.findUsers(firstName, lastName);
+        logger.debug("Получен запрос с параметрами: firstName={}, lastName={}", firstName, lastName);
 
+        // Izsaukt servisa metodi, kas veiks visu meklēšanas loģiku
+        List<UserDTO> users = userService.findUserByCriteria(firstName, lastName);
+
+        // Ja lietotāji nav atrasti, atgriežam 404 statusu
         if (users.isEmpty()) {
-            return ResponseEntity.noContent().build(); // 204 No Content
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        return ResponseEntity.ok(users); // 200 OK
+        // Ja lietotāji ir atrasti, atgriežam tos ar 200 statusu
+        return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-
-    // Lietotāju meklēšana pēc firstName
-    @GetMapping("/search/firstName")
-    public ResponseEntity<List<UserDTO>> searchUsersByFirstName(@RequestParam(required = false) String firstName) {
-        log.info("Searching for users by firstName={}", firstName);
-        List<UserDTO> users = userService.findByFirstName(firstName);
-
-        if (users.isEmpty()) {
-            log.info("No users found with the given firstName");
-            return ResponseEntity.noContent().build(); // Возвращает 204 No Content
-        }
-        return ResponseEntity.ok(users);
-    }
-
-    // Lietotāju meklēšana pēc lastName
-    @GetMapping("/search/by-lastName")
-    public ResponseEntity<List<UserDTO>> searchUsersByLastName(@RequestParam(required = false) String lastName) {
-        log.info("Searching for users by lastName={}", lastName);
-        List<UserDTO> users = userService.findByLastName(lastName);
-
-        if (users.isEmpty()) {
-            log.info("No users found with the given lastName");
-            return ResponseEntity.noContent().build(); // Возвращает 204 No Content
-        }
-        return ResponseEntity.ok(users);
-    }
 
 
     // Lietotāja atrašana pēc ID

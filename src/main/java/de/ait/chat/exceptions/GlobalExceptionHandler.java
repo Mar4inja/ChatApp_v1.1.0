@@ -53,5 +53,4 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleConfirmationCodeExpiredException(ConfirmationCodeExpiredException ex) {
         return new ResponseEntity<>(new ErrorResponse(ex.getMessage()), HttpStatus.CONFLICT);
     }
-
 }

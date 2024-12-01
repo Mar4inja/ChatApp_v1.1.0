@@ -17,6 +17,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -108,53 +109,45 @@ public class UserServiceImpl implements UserService {
         return userMappingService.mapEntityToDto(currentUser);  // Pārvērst User uz UserDTO
     }
 
-    @Override
-    public List<UserDTO> findByFirstName(String firstName) {
-        // Pārbauda, vai firstName ir null
-        if (firstName == null || firstName.isEmpty()) {
-            throw new IllegalArgumentException("Vārds nedrīkst būt null vai tukšs");
-        }
-        // Meklē lietotājus pēc pirmā vārda
-        return userRepository.findByFirstName(firstName); // Jau atgriež List<UserDTO>
-    }
+    public List<UserDTO> findUserByCriteria(String firstName, String lastName) {
+        logger.debug("Начало метода findUserByCriteria с параметрами: firstName='{}', lastName='{}'", firstName, lastName);
 
-    @Override
-    public List<UserDTO> findByLastName(String lastName) {
-        // Pārbauda, vai lastName ir null
-        if (lastName == null || lastName.isEmpty()) {
-            throw new IllegalArgumentException("Uzvārds nedrīkst būt null vai tukšs");
+        // Validējam parametru ievadi
+        if ((firstName == null || firstName.isEmpty()) && (lastName == null || lastName.isEmpty())) {
+            // Ja nav ievadīts ne vārds, ne uzvārds, izmetam izņēmumu
+            throw new IllegalArgumentException("Необходимо указать хотя бы один параметр: firstName или lastName");
         }
-        // Meklē lietotājus pēc uzvārda
-        return userRepository.findByLastName(lastName); // Jau atgriež List<UserDTO>
-    }
 
-    public List<UserDTO> findByNameAndLastName(String firstName, String lastName) {
-        List<UserDTO> users;
-        // Ja abi parametri ir norādīti
-        if (firstName != null && lastName != null) {
+        // Noņemam liekos baltos laukumus
+        firstName = (firstName != null) ? firstName.trim() : null;
+        lastName = (lastName != null) ? lastName.trim() : null;
+
+        logger.debug("Параметры после удаления пробелов: firstName='{}', lastName='{}'", firstName, lastName);
+
+        // Atkarībā no ievadītajiem parametriem veicam meklēšanu
+        List<UserDTO> users = new ArrayList<>();
+
+        if (firstName != null && !firstName.isEmpty() && (lastName == null || lastName.isEmpty())) {
+            // Ja tikai vārds ir norādīts
+            users = userRepository.findByFirstName(firstName);
+        } else if (lastName != null && !lastName.isEmpty() && (firstName == null || firstName.isEmpty())) {
+            // Ja tikai uzvārds ir norādīts
+            users = userRepository.findByLastName(lastName);
+        } else {
+            // Ja ir norādīti abi parametri
             users = userRepository.findByFirstNameAndLastName(firstName, lastName);
         }
-        // Ja tikai firstName ir norādīts
-        else if (firstName != null) {
-            users = userRepository.findByFirstName(firstName);
+
+        // Ja lietotāji nav atrasti, atgriežam tukšu sarakstu
+        if (users.isEmpty()) {
+            logger.debug("Пользователи не найдены с критериями: firstName={}, lastName={}", firstName, lastName);
         }
-        // Ja tikai lastName ir norādīts
-        else if (lastName != null) {
-            users = userRepository.findByLastName(lastName);
-        }
-        // Ja abi parametri ir null
-        else {
-            throw new IllegalArgumentException("Both firstName and lastName cannot be null");
-        }
-        // Ja nav atrasti lietotāji
-        if (users == null || users.isEmpty()) {
-            throw new UserNotFoundException("User not found with given criteria");
-        }
-        return users;
+
+        // Pārvēršam lietotājus uz DTO objektu sarakstu
+        return users.stream()
+                .map(user -> new UserDTO(user.getFirstName(), user.getLastName()))
+                .collect(Collectors.toList());
     }
-
-
-
 
     private void validatePassword(String password) {
         if (password == null || password.isEmpty()) {
