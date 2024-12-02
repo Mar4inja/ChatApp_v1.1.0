@@ -64,20 +64,15 @@ public class UserController {
             @RequestParam(required = false) String lastName) {
 
         logger.debug("Получен запрос с параметрами: firstName={}, lastName={}", firstName, lastName);
-
         // Izsaukt servisa metodi, kas veiks visu meklēšanas loģiku
         List<UserDTO> users = userService.findUserByCriteria(firstName, lastName);
-
         // Ja lietotāji nav atrasti, atgriežam 404 statusu
         if (users.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
         // Ja lietotāji ir atrasti, atgriežam tos ar 200 statusu
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
-
-
 
     // Lietotāja atrašana pēc ID
     @GetMapping("/{id}")
