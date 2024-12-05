@@ -6,6 +6,7 @@ import de.ait.chat.entity.dto.UserDTO;
 import org.springframework.security.core.Authentication;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface UserService {

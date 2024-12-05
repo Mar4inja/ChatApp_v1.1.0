@@ -8,12 +8,8 @@
         <tagDatabase tag="v.1.0.0"/>
     </changeSet>
 
-    <include file="add-roles.xml" relativeToChangelogFile="true"/>
-    <include file="create-table-user-role.xml" relativeToChangelogFile="true"/>
-    <include file="create-table-confirm-code.xml" relativeToChangelogFile="true"/>
-    <include file="add-foreign-keys-confirm-code-to-user.xml" relativeToChangelogFile="true"/>
-    <include file="create_table_user_profile_photo.xml" relativeToChangelogFile="true"/>
 
+    <include file="add_foreign_keys_to_user_profile_photo.xml" relativeToChangelogFile="true"/>
 
 
 

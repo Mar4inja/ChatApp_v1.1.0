@@ -28,7 +28,6 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-
     @Schema(description = "User ID", example = "1")
     private Long id;
 

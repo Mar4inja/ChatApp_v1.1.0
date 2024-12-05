@@ -23,6 +23,11 @@ spring:
             trust: smtp.gmail.com
         debug: true
 
+profile:
+  photo:
+    upload:
+      dir: D:/uploads/profile-photos
+
 
 key:
   access: Dm7QXW4YowIjJcIV/Qbs4u9R/RCCTPqeg7mkhaCJ6tA=
