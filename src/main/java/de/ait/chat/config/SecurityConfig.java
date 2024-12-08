@@ -53,7 +53,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/users/auth/me").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.PUT, "/api/users/auth/me").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.GET, "/api/users/findUser").hasAnyRole("ADMIN", "USER")
-                        .requestMatchers(HttpMethod.POST, "/api/profile/upload").hasAnyRole("ADMIN", "USER")
+
                         .requestMatchers("/js/**").permitAll() // Разрешить доступ к JavaScript
                         .requestMatchers("/css/**").permitAll() // Разрешить доступ к CSS
                         .requestMatchers("/images/**").permitAll() // Разрешить доступ к изображениям

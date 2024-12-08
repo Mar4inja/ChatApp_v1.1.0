@@ -31,7 +31,5 @@ public class UserDTO {
 
     // Конструктор для первого и последнего имени
     public UserDTO(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
     }
 }

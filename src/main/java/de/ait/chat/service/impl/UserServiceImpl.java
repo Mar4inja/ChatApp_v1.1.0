@@ -34,28 +34,50 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO register(UserDTO userDTO) {
-        userDTO.setId(null);
-        if (userDTO.getFirstName() == null || userDTO.getFirstName().isEmpty()
-                || userDTO.getLastName() == null || userDTO.getLastName().isEmpty()
-                || userDTO.getBirthdate() == null
-                || userDTO.getEmail() == null || userDTO.getEmail().isEmpty()
-                || userDTO.getPassword() == null || userDTO.getPassword().isEmpty()) {
-            throw new IllegalArgumentException("All fields are required");
+        userDTO.setId(null); // Убедитесь, что ID нового пользователя не передается
+
+        // Проверка обязательных полей
+        if (userDTO.getFirstName() == null || userDTO.getFirstName().isEmpty()) {
+            throw new IllegalArgumentException("First name is required");
         }
+        if (userDTO.getLastName() == null || userDTO.getLastName().isEmpty()) {
+            throw new IllegalArgumentException("Last name is required");
+        }
+        if (userDTO.getBirthdate() == null) {
+            throw new IllegalArgumentException("Birthdate is required");
+        }
+        if (userDTO.getEmail() == null || userDTO.getEmail().isEmpty()) {
+            throw new IllegalArgumentException("Email is required");
+        }
+        if (userDTO.getPassword() == null || userDTO.getPassword().isEmpty()) {
+            throw new IllegalArgumentException("Password is required");
+        }
+        // Проверка уникальности email
         if (userRepository.findByEmail(userDTO.getEmail()) != null) {
             throw new IllegalArgumentException("Email address already in use");
         }
+        // Назначение ролей
         userDTO.setRoles(Collections.singleton(roleRepository.findByTitle("ROLE_USER")));
+        // Валидация пароля
         validatePassword(userDTO.getPassword());
+        // Установка даты регистрации
         userDTO.setRegistrationDate(LocalDateTime.now());
+        // Шифрование пароля
         userDTO.setPassword(encoder.encode(userDTO.getPassword()));
+        // Установка статуса активности (по умолчанию false)
         userDTO.setActive(false);
+        // Преобразование DTO в Entity
         User user = userMappingService.mapDtoToEntity(userDTO);
+        // Сохранение пользователя в базе данных
         User savedUser = userRepository.save(user);
+        // Отправка email подтверждения
         emailService.sendConfirmationEmail(user);
-        logger.info("User with " + userDTO.getEmail() + " successfully registered");
+        // Логирование успешной регистрации
+        logger.info("User with email " + userDTO.getEmail() + " successfully registered");
+        // Возвращение DTO с данными сохраненного пользователя
         return userMappingService.mapEntityToDto(savedUser);
     }
+
 
     @Override
     public UserDTO updateData(Authentication authentication, UserDTO updatedUserDTO) {
