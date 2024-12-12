@@ -5,9 +5,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Автоформатирование даты
     document.getElementById("birthdate").addEventListener("input", function(event) {
-        let value = event.target.value.replace(/\D/g, ""); // Удаляем все, кроме чисел
+        let value = event.target.value.replace(/\D/g, "");
         if (value.length > 2 && value.length <= 4) {
-            value = value.slice(0, 2) + "." + value.slice(2); // Добавляем первую точку
+            value = value.slice(0, 2) + "." + value.slice(2);
         } else if (value.length > 4) {
             value = value.slice(0, 2) + "." + value.slice(2, 4) + "." + value.slice(4); // Добавляем обе точки
         }
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-// Ielādē navigācijas joslu no navbar.html
+
 fetch('navbar.html')
     .then(response => {
         if (!response.ok) {
@@ -72,6 +72,6 @@ fetch('navbar.html')
         return response.text();
     })
     .then(data => {
-        document.getElementById('navbar-placeholder').innerHTML = data; // Ievieto navigācijas joslu HTML
+        document.getElementById('navbar-placeholder').innerHTML = data;
     })
-    .catch(error => console.error('Error loading navbar:', error)); // Apstrādā kļūdas
+    .catch(error => console.error('Error loading navbar:', error));
