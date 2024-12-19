@@ -177,3 +177,52 @@
 2024-12-14T00:28:35.322+01:00 DEBUG 25392 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
 2024-12-14T00:29:05.337+01:00 DEBUG 25392 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
 2024-12-14T00:29:05.337+01:00 DEBUG 25392 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2024-12-14T00:29:29.130+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.b.a.ApplicationAvailabilityBean      : Application availability state ReadinessState changed from ACCEPTING_TRAFFIC to REFUSING_TRAFFIC
+2024-12-14T00:29:29.133+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] ConfigServletWebServerApplicationContext : Closing org.springframework.boot.web.servlet.context.AnnotationConfigServletWebServerApplicationContext@1e097d59, started on Fri Dec 13 12:56:20 CET 2024
+2024-12-14T00:29:29.191+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147483647
+2024-12-14T00:29:29.197+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Bean 'stompWebSocketHandlerMapping' completed its stop procedure
+2024-12-14T00:29:29.199+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.m.s.ExecutorSubscribableChannel      : clientOutboundChannel removed SubProtocolWebSocketHandler[StompSubProtocolHandler[v10.stomp, v11.stomp, v12.stomp]]
+2024-12-14T00:29:29.199+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Bean 'subProtocolWebSocketHandler' completed its stop procedure
+2024-12-14T00:29:29.199+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Bean 'clientInboundChannelExecutor' completed its stop procedure
+2024-12-14T00:29:29.199+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Bean 'clientOutboundChannelExecutor' completed its stop procedure
+2024-12-14T00:29:29.199+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Bean 'brokerChannelExecutor' completed its stop procedure
+2024-12-14T00:29:29.200+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.m.s.ExecutorSubscribableChannel      : clientInboundChannel removed WebSocketAnnotationMethodMessageHandler[prefixes=[/app/]]
+2024-12-14T00:29:29.200+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Bean 'simpAnnotationMethodMessageHandler' completed its stop procedure
+2024-12-14T00:29:29.200+01:00  INFO 25392 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-12-14T00:29:29.200+01:00  INFO 25392 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@435ec7f5]]
+2024-12-14T00:29:29.201+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.m.s.ExecutorSubscribableChannel      : clientInboundChannel removed SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@435ec7f5]
+2024-12-14T00:29:29.201+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.m.s.ExecutorSubscribableChannel      : brokerChannel removed SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@435ec7f5]
+2024-12-14T00:29:29.201+01:00  INFO 25392 --- [SpringApplicationShutdownHook] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-12-14T00:29:29.201+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Bean 'simpleBrokerMessageHandler' completed its stop procedure
+2024-12-14T00:29:29.201+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.m.s.ExecutorSubscribableChannel      : clientInboundChannel removed UserDestinationMessageHandler[DefaultUserDestinationResolver[prefix=/user/]]
+2024-12-14T00:29:29.201+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.m.s.ExecutorSubscribableChannel      : brokerChannel removed UserDestinationMessageHandler[DefaultUserDestinationResolver[prefix=/user/]]
+2024-12-14T00:29:29.201+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Bean 'userDestinationMessageHandler' completed its stop procedure
+2024-12-14T00:29:29.201+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147482623
+2024-12-14T00:29:29.213+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Bean 'webServerGracefulShutdown' completed its stop procedure
+2024-12-14T00:29:29.213+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase 2147481599
+2024-12-14T00:29:29.393+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Bean 'webServerStartStop' completed its stop procedure
+2024-12-14T00:29:29.393+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Stopping beans in phase -2147483647
+2024-12-14T00:29:29.394+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.c.support.DefaultLifecycleProcessor  : Bean 'springBootLoggingLifecycle' completed its stop procedure
+2024-12-14T00:29:29.402+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.s.c.ThreadPoolTaskScheduler          : Shutting down ExecutorService 'messageBrokerTaskScheduler'
+2024-12-14T00:29:29.402+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'brokerChannelExecutor'
+2024-12-14T00:29:29.403+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'clientOutboundChannelExecutor'
+2024-12-14T00:29:29.403+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'clientInboundChannelExecutor'
+2024-12-14T00:29:29.404+01:00  INFO 25392 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-12-14T00:29:29.407+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.hibernate.internal.SessionFactoryImpl  : HHH000031: Closing
+2024-12-14T00:29:29.423+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.h.type.spi.TypeConfiguration$Scope     : Un-scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration$Scope@d96492c] from SessionFactory [org.hibernate.internal.SessionFactoryImpl@611f28f5]
+2024-12-14T00:29:29.425+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.h.s.i.AbstractServiceRegistryImpl      : Implicitly destroying ServiceRegistry on de-registration of all child ServiceRegistries
+2024-12-14T00:29:29.434+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] o.h.b.r.i.BootstrapServiceRegistryImpl   : Implicitly destroying Boot-strap registry on de-registration of all child ServiceRegistries
+2024-12-14T00:29:29.435+01:00  INFO 25392 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-12-14T00:29:29.435+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Before shutdown stats (total=10, active=0, idle=10, waiting=0)
+2024-12-14T00:29:29.439+01:00 DEBUG 25392 --- [HikariPool-1 connection closer] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@159ce441: (connection evicted)
+2024-12-14T00:29:29.440+01:00 DEBUG 25392 --- [HikariPool-1 connection closer] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@d7ef299: (connection evicted)
+2024-12-14T00:29:29.440+01:00 DEBUG 25392 --- [HikariPool-1 connection closer] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@449ba2f6: (connection evicted)
+2024-12-14T00:29:29.440+01:00 DEBUG 25392 --- [HikariPool-1 connection closer] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@4ccfe7f8: (connection evicted)
+2024-12-14T00:29:29.440+01:00 DEBUG 25392 --- [HikariPool-1 connection closer] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@5e17c401: (connection evicted)
+2024-12-14T00:29:29.441+01:00 DEBUG 25392 --- [HikariPool-1 connection closer] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@5e0e6a55: (connection evicted)
+2024-12-14T00:29:29.441+01:00 DEBUG 25392 --- [HikariPool-1 connection closer] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@669caaf8: (connection evicted)
+2024-12-14T00:29:29.441+01:00 DEBUG 25392 --- [HikariPool-1 connection closer] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@373ada1c: (connection evicted)
+2024-12-14T00:29:29.442+01:00 DEBUG 25392 --- [HikariPool-1 connection closer] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@5d38b20a: (connection evicted)
+2024-12-14T00:29:29.443+01:00 DEBUG 25392 --- [HikariPool-1 connection closer] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@c360e98: (connection evicted)
+2024-12-14T00:29:29.444+01:00 DEBUG 25392 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - After shutdown stats (total=0, active=0, idle=0, waiting=0)
+2024-12-14T00:29:29.444+01:00  INFO 25392 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
